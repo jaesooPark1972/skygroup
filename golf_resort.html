@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파인리즈 리조트 골프장 - 하늘그룹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="sky_group_main.html" class="flex items-center space-x-2">
+                <img src="images/하늘그룹loge.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">파인리즈 리조트</h1>
+            <h2 class="text-2xl md:text-4xl font-bold mb-6">골프장</h2>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">한국 Top 10 선정, 프리미엄 골프 리조트 경험</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">27홀</div>
+                    <div class="text-lg opacity-90">챔피언십 코스</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">Top 10</div>
+                    <div class="text-lg opacity-90">한국 골프장 순위</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">프리미엄</div>
+                    <div class="text-lg opacity-90">리조트 서비스</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 개요 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">파인리즈 리조트 골프장</h2>
+                <div class="text-lg leading-relaxed mb-8">
+                    <p class="mb-6">
+                        파인리즈 리조트 골프장은 <strong class="text-green-600">27홀의 챔피언십 코스</strong>를 갖춘 국내 최고 수준의 프리미엄 골프 리조트입니다.
+                    </p>
+                    <p class="mb-6">
+                        아름다운 자연경관과 조화를 이룬 코스 설계로 <strong class="text-green-600">한국 10대 골프장</strong>에 선정되었으며, 전문적인 운영과 최고급 서비스로 골퍼들에게 최상의 경험을 제공합니다.
+                    </p>
+                    <p>
+                        국제 수준의 코스 관리와 다양한 리조트 부대시설을 통해 골프뿐만 아니라 휴식과 레저를 동시에 즐길 수 있는 종합 리조트로 운영됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 골프 코스 소개 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">27홀 챔피언십 코스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-lg mr-4">
+                            <i class="ri-mountain-line text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Mountain Course (9홀)</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        산악 지형을 활용한 도전적인 코스로, 전략적 샷과 정확한 퍼팅이 요구되는 고난도 레이아웃입니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Par 36, 3,420야드</li>
+                        <li>• 업다운이 많은 코스</li>
+                        <li>• 숙련된 골퍼에게 추천</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="ri-water-percent-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Lake Course (9홀)</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        아름다운 호수를 끼고 설계된 코스로, 물을 넘나드는 스릴 넘치는 플레이를 즐길 수 있습니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Par 36, 3,380야드</li>
+                        <li>• 워터 해저드 다수</li>
+                        <li>• 전략적 플레이 필요</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-100 p-3 rounded-lg mr-4">
+                            <i class="ri-landscape-line text-2xl text-orange-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Valley Course (9홀)</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        계곡 지형의 자연미를 살린 코스로, 넓은 페어웨이와 함께 편안한 플레이가 가능합니다.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Par 36, 3,450야드</li>
+                        <li>• 넓은 페어웨이</li>
+                        <li>• 초중급자에게 적합</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 시설 및 서비스 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">프리미엄 시설 & 서비스</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-lg mr-4">
+                            <i class="ri-building-line text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">클럽하우스</h3>
+                    </div>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 프리미엄 라커룸 및 샤워시설</li>
+                        <li>• 고급 레스토랑 및 카페</li>
+                        <li>• 골프샵 & 프로샵</li>
+                        <li>• VIP 라운지</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="ri-service-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">골프 서비스</h3>
+                    </div>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 전문 캐디 서비스</li>
+                        <li>• 골프 레슨 프로그램</li>
+                        <li>• 장비 대여 서비스</li>
+                        <li>• 코스 메니지먼트</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                            <i class="ri-hotel-line text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">숙박 시설</h3>
+                    </div>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 5성급 호텔 객실</li>
+                        <li>• 골프뷰 스위트룸</li>
+                        <li>• 콘도미니엄</li>
+                        <li>• 24시간 컨시어지</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-100 p-3 rounded-lg mr-4">
+                            <i class="ri-leaf-line text-2xl text-orange-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">부대시설</h3>
+                    </div>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 스파 & 사우나</li>
+                        <li>• 피트니스 센터</li>
+                        <li>• 수영장</li>
+                        <li>• 회의실 & 연회장</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 골프 레슨 프로그램 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">골프 레슨 프로그램</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🔰</div>
+                    <h3 class="font-bold text-lg mb-2">초보자 기초반</h3>
+                    <p class="text-gray-600 text-sm mb-3">골프 기초 자세와 기본 스윙을 배우는 입문 과정</p>
+                    <div class="text-green-600 font-semibold">150,000원/5회</div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">📈</div>
+                    <h3 class="font-bold text-lg mb-2">중급자 향상반</h3>
+                    <p class="text-gray-600 text-sm mb-3">스윙 교정과 코스 전략을 배우는 실력 향상 과정</p>
+                    <div class="text-green-600 font-semibold">200,000원/5회</div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🏆</div>
+                    <h3 class="font-bold text-lg mb-2">상급자 마스터반</h3>
+                    <p class="text-gray-600 text-sm mb-3">고급 기술과 코스 공략법을 마스터하는 전문 과정</p>
+                    <div class="text-green-600 font-semibold">300,000원/5회</div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
+                    <h3 class="font-bold text-lg mb-2">주니어 골프교실</h3>
+                    <p class="text-gray-600 text-sm mb-3">어린이와 청소년을 위한 맞춤형 골프 교육</p>
+                    <div class="text-green-600 font-semibold">100,000원/5회</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 멤버십 안내 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">멤버십 안내</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="border-2 border-gray-200 rounded-lg p-6 text-center">
+                    <div class="text-2xl font-bold text-green-600 mb-4">Regular</div>
+                    <div class="text-3xl font-bold mb-4">5억원</div>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li>• 평일 무제한 라운딩</li>
+                        <li>• 주말 월 4회 라운딩</li>
+                        <li>• 동반자 특가 혜택</li>
+                        <li>• 시설 이용 할인</li>
+                    </ul>
+                    <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">문의하기</button>
+                </div>
+                
+                <div class="border-2 border-green-600 rounded-lg p-6 text-center relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-600 text-white px-4 py-1 rounded-full text-sm">인기</div>
+                    <div class="text-2xl font-bold text-green-600 mb-4">Premium</div>
+                    <div class="text-3xl font-bold mb-4">8억원</div>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li>• 연중 무제한 라운딩</li>
+                        <li>• 프리미엄 캐디 서비스</li>
+                        <li>• VIP 라운지 이용</li>
+                        <li>• 숙박 시설 할인</li>
+                    </ul>
+                    <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">문의하기</button>
+                </div>
+                
+                <div class="border-2 border-gray-200 rounded-lg p-6 text-center">
+                    <div class="text-2xl font-bold text-green-600 mb-4">VIP</div>
+                    <div class="text-3xl font-bold mb-4">12억원</div>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li>• 모든 혜택 포함</li>
+                        <li>• 전용 라커룸</li>
+                        <li>• 개인 캐디 지원</li>
+                        <li>• 특별 이벤트 초대</li>
+                    </ul>
+                    <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">문의하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 수상 실적 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">수상 실적 & 인증</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🏆</div>
+                    <h3 class="font-bold text-lg mb-2">한국 Top 10</h3>
+                    <p class="text-gray-600 text-sm">골프다이제스트 선정</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🌟</div>
+                    <h3 class="font-bold text-lg mb-2">5성급 리조트</h3>
+                    <p class="text-gray-600 text-sm">관광공사 인증</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🌱</div>
+                    <h3 class="font-bold text-lg mb-2">친환경 골프장</h3>
+                    <p class="text-gray-600 text-sm">그린 골프장 인증</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-3xl mb-3">🎖️</div>
+                    <h3 class="font-bold text-lg mb-2">서비스 대상</h3>
+                    <p class="text-gray-600 text-sm">골프산업협회</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="py-20 bg-green-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">파인리즈 리조트에서 최고의 골프 경험을 만나보세요</h2>
+            <p class="text-xl mb-8">한국 Top 10 골프장에서 펼쳐지는 프리미엄 골프 라이프</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="sky_group_main.html" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">예약 문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <img src="images/하늘그룹loge.png" alt="하늘그룹 로고" class="h-6 w-auto">
+                <span class="text-xl font-bold">하늘그룹</span>
+            </div>
+            <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP 애니메이션
+        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
+        gsap.from(".hero-section h2", {duration: 1, y: 30, opacity: 0, delay: 0.7});
+        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.9});
+        
+        // 카드 애니메이션
+        gsap.utils.toArray(".feature-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+</body>
+</html>

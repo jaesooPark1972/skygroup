@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하늘그룹 - 미래 혁신의 새로운 패러다임</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            background-color: #f9fafb;
+        }
+        
+        .hero-section {
+            background-image: linear-gradient(to right, rgba(37, 99, 235, 0.4), rgba(30, 64, 175, 0.35)), url("images/1page.jpg");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .business-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .business-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .revenue-highlight {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 12px 30px;
+            border: 2px solid white;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <img src="images/하늘그룹loge.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">그룹소개</a>
+                <a href="#business" class="text-gray-700 hover:text-blue-600 transition-colors">사업분야</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#subsidiaries" class="text-gray-700 hover:text-blue-600 transition-colors">자회사</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
+            </nav>
+            <button class="md:hidden text-gray-700 text-2xl">
+                <i class="ri-menu-line"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="hero-section text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    미래 혁신의 새로운 패러다임
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    총 투자 <span class="font-black text-yellow-300">5조원</span> 규모의 글로벌 혁신 기업
+                </p>
+                
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6 mb-8 inline-block">
+                    <div class="text-3xl md:text-4xl font-black mb-2">총 투자 5조원</div>
+                    <div class="text-lg opacity-90">연간 예상 매출 36조원</div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <button class="btn-primary">사업 소개서 다운로드</button>
+                    <button class="btn-secondary">투자 문의하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주요 통계 섹션 -->
+    <section id="stats" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">핵심 성과 지표</h2>
+            <p class="section-subtitle">하늘그룹의 혁신적인 사업 모델과 성장 잠재력을 수치로 확인하세요</p>
+            
+            <div class="stats-grid">
+                <div class="bg-gray-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-black text-blue-600 mb-3">36조원</div>
+                    <div class="text-gray-700 text-lg font-semibold mb-2">연간 예상 매출</div>
+                    <div class="text-gray-500">K-진세노사이드 중심</div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-black text-blue-600 mb-3">2,500명</div>
+                    <div class="text-gray-700 text-lg font-semibold mb-2">고용 창출</div>
+                    <div class="text-gray-500">지역경제 활성화</div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-black text-blue-600 mb-3">10만두</div>
+                    <div class="text-gray-700 text-lg font-semibold mb-2">유산양 사육</div>
+                    <div class="text-gray-500">일일 50만리터 생산</div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-black text-blue-600 mb-3">27홀</div>
+                    <div class="text-gray-700 text-lg font-semibold mb-2">프리미엄 골프장</div>
+                    <div class="text-gray-500">한국 10대 골프장 선정</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12개 핵심 사업분야 -->
+    <section id="business" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">12개 핵심 사업분야</h2>
+            <p class="section-subtitle">혁신 기술과 지속가능한 성장을 통해 미래를 선도하는 다양한 사업 영역</p>
+            
+            <!-- 사업분야 이미지 갤러리 -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+                <img src="images/3_1.jpg" alt="AI 기반 스마트팜" class="w-full h-32 object-cover rounded-lg shadow-md">
+                <img src="images/3_2.jpg" alt="스마트 양식" class="w-full h-32 object-cover rounded-lg shadow-md">
+                <img src="images/3_3.jpg" alt="K-슈퍼발효진삼" class="w-full h-32 object-cover rounded-lg shadow-md">
+                <img src="images/3_4.jpg" alt="엘크로 기능성 음료" class="w-full h-32 object-cover rounded-lg shadow-md">
+                <img src="images/3_5.jpg" alt="Vivara 베이커리" class="w-full h-32 object-cover rounded-lg shadow-md">
+                <img src="images/3_6.jpg" alt="플라즈마 기술" class="w-full h-32 object-cover rounded-lg shadow-md">
+            </div>
+            
+            <div class="business-grid">
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="ri-plant-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">AI 기반 스마트팜</h3>
+                    <p class="text-gray-600 mb-4">새싹인삼, 열대과일 재배 (120만평)</p>
+                    <div class="revenue-highlight">연 441억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #1e40af, #1d4ed8);">
+                        <i class="ri-water-percent-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">스마트 양식</h3>
+                    <p class="text-gray-600 mb-4">장어, 새우, 김 양식 (10만평)</p>
+                    <div class="revenue-highlight">연 766억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="ri-medicine-bottle-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">K-슈퍼발효진삼</h3>
+                    <p class="text-gray-600 mb-4">SGS 473종 무농약 인증</p>
+                    <div class="revenue-highlight">연 36조원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="ri-cup-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">엘크로 기능성 음료</h3>
+                    <p class="text-gray-600 mb-4">FDA 등록 완료</p>
+                    <div class="revenue-highlight">연 2천억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <i class="ri-cake-3-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Vivara 베이커리 & 카페</h3>
+                    <p class="text-gray-600 mb-4">100개 직영점 운영</p>
+                    <div class="revenue-highlight">연 3천억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                        <i class="ri-lightbulb-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">플라즈마 기술</h3>
+                    <p class="text-gray-600 mb-4">1천억 투자, 글로벌 수출</p>
+                    <div class="revenue-highlight">연 1천억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #84cc16, #65a30d);">
+                        <i class="ri-sheep-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">유산양 집단농장</h3>
+                    <p class="text-gray-600 mb-4">10만두 사육, 일일 50만L 생산</p>
+                    <div class="revenue-highlight">프리미엄 유제품</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #f97316, #ea580c);">
+                        <i class="ri-golf-ball-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">파인리즈 리조트 골프장</h3>
+                    <p class="text-gray-600 mb-4">27홀, 한국 10대 골프장 선정</p>
+                    <div class="revenue-highlight">프리미엄 리조트</div>
+                </div>
+                
+                <!-- 추가된 4개 사업분야 -->
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="ri-building-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">CLT 전원마을</h3>
+                    <p class="text-gray-600 mb-4">10만평, 1만명 거주</p>
+                    <div class="revenue-highlight">친환경 주거단지</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                        <i class="ri-store-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Vivara 프랜차이즈</h3>
+                    <p class="text-gray-600 mb-4">100매장, 글로벌 브랜드</p>
+                    <div class="revenue-highlight">연 3천억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                        <i class="ri-factory-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">플라즈마 기술 공장</h3>
+                    <p class="text-gray-600 mb-4">1천억 투자, 글로벌 수출</p>
+                    <div class="revenue-highlight">연 1천억원 매출</div>
+                </div>
+                
+                <div class="business-card">
+                    <div class="business-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="ri-riding-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">승마코스</h3>
+                    <p class="text-gray-600 mb-4">강원도 고성군, 15km</p>
+                    <div class="revenue-highlight">프리미엄 승마 체험</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연구개발 & 파트너십 -->
+    <section id="research" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">연구개발 & 파트너십</h2>
+            <p class="section-subtitle">최고 수준의 연구기관과의 협력을 통한 혁신 기술 개발</p>
+            
+            <div class="flex flex-wrap items-center mb-8">
+                <div class="w-full md:w-1/2 mb-6 md:mb-0">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">산학협력</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• 서울대학교</li>
+                                <li>• 경희대학교</li>
+                                <li>• 카이스트</li>
+                                <li>• 농어촌공사연구소</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">바이오 신약</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• Ginsenoside CK</li>
+                                <li>• RG3 고순도 98% 양산</li>
+                                <li>• 473종 무농약 인증</li>
+                                <li>• FDA 등록 완료</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">혁신 기술</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li>• 플라즈마 기술</li>
+                                <li>• AI 기반 농업 최적화</li>
+                                <li>• 발아 성공률 99%</li>
+                                <li>• 탄소 저감형 운영</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-8">
+                    <img src="images/2page.jpg" alt="연구개발 시설" class="w-full rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9개 대형 프로젝트 -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">9개 대형 프로젝트</h2>
+            <p class="section-subtitle">구체적인 수익 모델과 실현 가능한 사업 계획</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">스마트팜 단지</h3>
+                    <p class="text-gray-600 mb-2">120만평, 연 441억원 매출</p>
+                    <p class="text-green-600 font-semibold">순이익: 295억원</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">스마트 양식장</h3>
+                    <p class="text-gray-600 mb-2">10만평, 연 766억원 매출</p>
+                    <p class="text-green-600 font-semibold">순이익: 541억원</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">K-진세노사이드 생산</h3>
+                    <p class="text-gray-600 mb-2">연 36조원 매출</p>
+                    <p class="text-green-600 font-semibold">순이익: 30조원</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">유산양집단농장</h3>
+                    <p class="text-gray-600 mb-2">10만두, 일일 50만L 생산</p>
+                    <p class="text-blue-600 font-semibold">프리미엄 유제품</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">파인리즈 리조트</h3>
+                    <p class="text-gray-600 mb-2">27홀, 한국 Top10 수상</p>
+                    <p class="text-blue-600 font-semibold">프리미엄 골프 리조트</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">CLT 전원마을</h3>
+                    <p class="text-gray-600 mb-2">10만평, 1만명 거주</p>
+                    <p class="text-blue-600 font-semibold">친환경 주거단지</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Vivara 프랜차이즈</h3>
+                    <p class="text-gray-600 mb-2">100매장, 연 3천억원 매출</p>
+                    <p class="text-green-600 font-semibold">글로벌 브랜드</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">플라즈마 기술 공장</h3>
+                    <p class="text-gray-600 mb-2">1천억 투자, 글로벌 수출</p>
+                    <p class="text-green-600 font-semibold">연 1천억원 매출</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">승마코스</h3>
+                    <p class="text-gray-600 mb-2">강원도 고성군, 15km</p>
+                    <p class="text-blue-600 font-semibold">프리미엄 승마 체험</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 자회사 -->
+    <section id="subsidiaries" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">자회사</h2>
+            <p class="section-subtitle">하늘그룹의 다양한 자회사를 통한 사업 영역 확장</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">🏢</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">시네젠</h3>
+                    <p class="text-gray-600 mb-4">하남 글로벌 콘텐츠 산업단지 개발</p>
+                    <a href="haneul_group_website_updated.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">자세히 보기</a>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">SEED PLANTS 종자회사</h3>
+                    <p class="text-gray-600 mb-4">스마트팜 기술 및 운영</p>
+                    <button class="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">준비중</button>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">🥛</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">하늘음료(기능성, 일반)</h3>
+                    <p class="text-gray-600 mb-4">기능성 음료 제조 및 유통</p>
+                    <button class="bg-gray-400 text-white px-6 py-2 rounded-lg cursor-not-allowed">준비중</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="section-title">문의하기</h2>
+            <p class="section-subtitle">하늘그룹과 함께 미래를 만들어가세요</p>
+            
+            <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+                <div class="mb-4">
+                    <i class="ri-phone-line text-2xl text-blue-600 mb-2"></i>
+                    <p class="text-gray-800 font-semibold">전화번호</p>
+                    <p class="text-gray-600">010-7572-2562</p>
+                </div>
+                
+                <div class="mb-4">
+                    <i class="ri-mail-line text-2xl text-blue-600 mb-2"></i>
+                    <p class="text-gray-800 font-semibold">이메일</p>
+                    <p class="text-gray-600">greatparkjaesoo@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <img src="images/하늘그룹loge.png" alt="하늘그룹 로고" class="h-6 w-auto">
+                <span class="text-xl font-bold">하늘그룹</span>
+            </div>
+            <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP 애니메이션
+        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
+        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.8});
+        gsap.from(".hero-section .btn-primary, .hero-section .btn-secondary", {duration: 1, y: 20, opacity: 0, delay: 1.1, stagger: 0.2});
+        
+        // 스크롤 애니메이션
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray(".business-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        gsap.utils.toArray(".project-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                x: -50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
