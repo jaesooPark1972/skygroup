@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트팜 단지 - 하늘그룹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="sky_group_main.html" class="flex items-center space-x-2">
+                <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">스마트팜 단지</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">특용작물 재배 및 공급 시스템</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">120만평</div>
+                    <div class="text-lg opacity-90">총 부지 면적</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">441억원</div>
+                    <div class="text-lg opacity-90">연간 매출</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">295억원</div>
+                    <div class="text-lg opacity-90">연간 순이익</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 개요 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">프로젝트 개요</h2>
+                <div class="text-lg leading-relaxed mb-8">
+                    <p class="mb-6">
+                        스마트팜 단지는 첨단 정보통신기술(ICT)을 활용하여 작물의 생육 환경을 정밀하게 제어하고 최적화하여 생산성을 극대화하는 농업 시스템입니다. 
+                    </p>
+                    <p class="mb-6">
+                        특히 이 단지는 한국 내 다른 농가와의 경쟁을 피하기 위해 <strong class="text-green-600">새싹인삼, 열대과일(과라니, 망고, 멜론 등)</strong>과 같은 고부가가치 특용작물을 전문적으로 재배합니다.
+                    </p>
+                    <p>
+                        생산된 수확물은 크게 두 가지 목적으로 공급됩니다: 첫째, 제약, 음료, 기능성 원료 등으로 사용되는 원료 시장에 공급됩니다. 둘째, Vivara 프랜차이즈의 카페 및 매운탕집 레스토랑에 신선하고 고품질의 재료로 직접 납품됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주요 기술 요소 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">주요 기술 요소</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-lg mr-4">
+                            <i class="ri-settings-3-line text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">환경 제어 시스템</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        온도, 습도, CO2 농도, 광량 등 작물 생육에 필요한 환경 요소를 실시간으로 모니터링하고 자동으로 제어합니다. 특용작물에 최적화된 생육 조건을 제공하여 품질과 생산량을 극대화합니다.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="ri-robot-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">자동화된 재배 시스템</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        자동 급수, 양액 공급, 환기, 수확 등 반복적인 작업을 자동화하여 노동력을 절감하고 작업 효율성을 높입니다.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                            <i class="ri-brain-line text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">빅데이터 및 인공지능 (AI)</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        작물 생육 데이터, 환경 데이터 등을 수집, 분석하여 최적의 재배 알고리즘을 구축하고, 질병 예측 및 맞춤형 관리 방안을 제공합니다.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-100 p-3 rounded-lg mr-4">
+                            <i class="ri-building-4-line text-2xl text-orange-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">수직 농장 및 스마트 온실</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        제한된 공간에서 효율적으로 다량의 작물을 생산할 수 있도록 수직 농장 방식을 채택하거나, 기후 변화에 영향을 받지 않는 스마트 온실 환경을 조성합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 장점 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">스마트팜 단지의 장점</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-medal-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">고품질 특용작물 생산</h3>
+                    <p class="text-gray-600">정밀한 환경 제어와 최적화된 재배 방식을 통해 새싹인삼, 열대과일 등 고품질의 특용작물을 안정적으로 생산</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-links-line text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">안정적인 공급망 구축</h3>
+                    <p class="text-gray-600">원료 시장 및 Vivara 프랜차이즈 레스토랑과의 직거래를 통해 안정적인 수요를 확보하고 유통 단계를 최소화</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-trophy-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">경쟁 우위 확보</h3>
+                    <p class="text-gray-600">국내 일반 농가와 겹치지 않는 특용작물 재배를 통해 시장 경쟁력을 확보하고, 고부가가치 창출에 집중</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-leaf-line text-2xl text-orange-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">지속 가능성 및 효율성</h3>
+                    <p class="text-gray-600">에너지 및 자원 사용을 최적화하여 환경 부담을 줄이고, 최소한의 인력으로도 대규모 생산이 가능</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 이미지 갤러리 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">스마트팜 단지 시설</h2>
+            <div class="max-w-4xl mx-auto">
+                <img src="images/3_1.jpg" alt="스마트팜 단지" class="w-full rounded-lg shadow-lg mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <img src="images/3_1.jpg" alt="스마트팜 시설 1" class="w-full h-48 object-cover rounded-lg shadow-md">
+                    <img src="images/3_1.jpg" alt="스마트팜 시설 2" class="w-full h-48 object-cover rounded-lg shadow-md">
+                    <img src="images/3_1.jpg" alt="스마트팜 시설 3" class="w-full h-48 object-cover rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="py-20 bg-green-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">스마트팜 단지에 대해 더 알아보세요</h2>
+            <p class="text-xl mb-8">혁신적인 농업 기술과 지속 가능한 성장을 경험해보세요</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="sky_group_main.html" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-xl font-bold">하늘그룹</span>
+            </div>
+            <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP 애니메이션
+        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
+        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.8});
+        
+        // 카드 애니메이션
+        gsap.utils.toArray(".feature-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+</body>
+</html>

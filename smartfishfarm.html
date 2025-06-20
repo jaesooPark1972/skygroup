@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 양식장 - 하늘그룹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #1e40af, #1d4ed8);
+            color: white;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="sky_group_main.html" class="flex items-center space-x-2">
+                <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">스마트 양식장</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">4차 산업혁명 기술을 활용한 지능형 수산 양식 시스템</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">10만평</div>
+                    <div class="text-lg opacity-90">총 양식장 면적</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">766억원</div>
+                    <div class="text-lg opacity-90">연간 매출</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                    <div class="text-3xl font-bold mb-2">541억원</div>
+                    <div class="text-lg opacity-90">연간 순이익</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 개요 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">스마트 양식장이란?</h2>
+                <div class="text-lg leading-relaxed mb-8">
+                    <p class="mb-6">
+                        스마트 양식장은 최신 정보통신기술(ICT)을 양식업에 접목하여 수산물의 생산, 관리, 유통 전반을 자동화하고 지능화하는 시스템입니다.
+                    </p>
+                    <p class="mb-6">
+                        4차 산업혁명 기술(사물인터넷, 빅데이터, 인공지능 등)을 활용하여 생산 효율을 극대화하고 친환경적인 양식 환경을 구축하는 것을 목표로 합니다.
+                    </p>
+                    <p>
+                        수온, 용존 산소량, pH, 염분 등 수질 환경을 실시간으로 모니터링하고 최적화하여 고품질 수산물을 안정적으로 생산합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주요 기술 요소 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">주요 기술 요소</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                            <i class="ri-wifi-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">사물인터넷 (IoT)</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        수온, 용존 산소량, pH, 염분 등 수질 환경 데이터를 실시간으로 측정하는 센서와 장비들이 포함됩니다. 이 데이터는 양식 생물의 최적 생육 환경을 유지하는 데 사용됩니다.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                            <i class="ri-brain-line text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">빅데이터 및 AI</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        수집된 방대한 데이터를 분석하여 양식 생물의 성장 상태, 질병 예측, 사료 섭취량 등을 예측하고 최적의 양식 환경을 조성하는 데 활용됩니다.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-white rounded-lg p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-lg mr-4">
+                            <i class="ri-robot-line text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">자동화 시스템</h3>
+                    </div>
+                    <p class="text-gray-600">
+                        원격 제어 및 자동 급이 시스템, 수질 정화 및 순환 여과 시스템, 무인 잠수정이나 수중 카메라를 이용한 어류 모니터링 등이 포함됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 장점 섹션 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">스마트 양식장의 장점</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-arrow-up-line text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">생산성 향상</h3>
+                    <p class="text-gray-600">자동화된 시스템과 데이터 기반의 관리를 통해 사료 허실을 줄이고 어류의 건강한 성장을 촉진하여 생산량을 늘립니다.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-money-dollar-circle-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">비용 절감</h3>
+                    <p class="text-gray-600">사료비, 인건비, 에너지 비용 등을 효율적으로 관리하여 전반적인 운영 비용을 줄일 수 있습니다.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-leaf-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">환경 친화적</h3>
+                    <p class="text-gray-600">순환 여과 시스템 등을 통해 물 사용량을 최소화하고, 폐수 발생을 줄여 환경 오염을 감소시킵니다.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-medal-line text-2xl text-orange-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">품질 향상</h3>
+                    <p class="text-gray-600">최적의 생육 환경을 유지하고 실시간 모니터링을 통해 질병 발생을 조기에 감지하고 예방하여 양식 수산물의 품질을 높입니다.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-shield-check-line text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">재해 대응</h3>
+                    <p class="text-gray-600">실시간 감시 및 경보 시스템을 통해 자연재해나 환경 변화에 대한 신속한 대응이 가능하여 양식장의 안정성을 확보합니다.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-line-chart-line text-2xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-3">데이터 기반 운영</h3>
+                    <p class="text-gray-600">축적된 데이터를 통해 지속적인 운영 최적화가 가능하며, 예측 가능한 수산물 생산 계획을 수립할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 양식 품종 -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">주요 양식 품종</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-4xl mb-4">🐟</div>
+                    <h3 class="text-xl font-bold mb-3">고급 어류</h3>
+                    <p class="text-gray-600">장어, 광어, 농어 등 고부가가치 어종을 전문적으로 양식하여 프리미엄 시장을 타겟합니다.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-4xl mb-4">🦐</div>
+                    <h3 class="text-xl font-bold mb-3">갑각류</h3>
+                    <p class="text-gray-600">새우, 게 등 갑각류를 최적의 환경에서 양식하여 신선하고 품질 높은 수산물을 공급합니다.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                    <div class="text-4xl mb-4">🌊</div>
+                    <h3 class="text-xl font-bold mb-3">해조류</h3>
+                    <p class="text-gray-600">김, 미역, 다시마 등 영양가 높은 해조류를 친환경적으로 재배하여 건강식품 원료로 공급합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 이미지 갤러리 -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">스마트 양식장 시설</h2>
+            <div class="max-w-4xl mx-auto">
+                <img src="images/3_2.jpg" alt="스마트 양식장" class="w-full rounded-lg shadow-lg mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <img src="images/3_2.jpg" alt="양식장 시설 1" class="w-full h-48 object-cover rounded-lg shadow-md">
+                    <img src="images/3_2.jpg" alt="양식장 시설 2" class="w-full h-48 object-cover rounded-lg shadow-md">
+                    <img src="images/3_2.jpg" alt="양식장 시설 3" class="w-full h-48 object-cover rounded-lg shadow-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="py-20 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">스마트 양식장에 대해 더 알아보세요</h2>
+            <p class="text-xl mb-8">미래 수산업의 혁신을 경험해보세요</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="sky_group_main.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-xl font-bold">하늘그룹</span>
+            </div>
+            <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP 애니메이션
+        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
+        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.8});
+        
+        // 카드 애니메이션
+        gsap.utils.toArray(".feature-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+    </script>
+</body>
+</html>

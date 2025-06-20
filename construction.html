@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하늘종합건설 - 하늘그룹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+        }
+        
+        .header-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card, .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover, .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-item {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+        }
+        
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.25rem;
+            bottom: -2rem;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .btn-primary-hd {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary-hd:hover {
+            background: linear-gradient(135deg, #1e40af, #1e3a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-secondary-hd {
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary-hd:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="header-fixed">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="sky_group_main.html" class="flex items-center space-x-2">
+              <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
+            </a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">회사소개</a>
+                <a href="#business" class="text-gray-700 hover:text-blue-600 transition-colors">사업분야</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero-section py-20 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="hero-content">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">하늘종합건설</h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">40년간 축적된 기술력과 혁신으로 대한민국 건설 산업을 선도합니다</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto mb-8">
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                        <div class="stat-number">40년</div>
+                        <div class="text-lg opacity-90">건설 경험</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                        <div class="stat-number">5.2조원</div>
+                        <div class="text-lg opacity-90">연간 매출</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                        <div class="stat-number">12조원</div>
+                        <div class="text-lg opacity-90">수주잔고</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
+                        <div class="stat-number">AA등급</div>
+                        <div class="text-lg opacity-90">신용등급</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#about" class="btn-primary-hd">회사소개</a>
+                    <a href="#contact" class="btn-secondary-hd bg-white text-blue-600 hover:bg-gray-100">문의하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 회사소개 -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">회사소개</h2>
+                    <p class="text-xl text-gray-600">40년간 축적된 기술력과 혁신으로 미래를 건설합니다</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">비전</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            지속 가능한 건설 기술의 혁신을 통해 인류의 더 나은 미래를 건설하며, 
+                            환경과 사회의 조화로운 발전에 기여하는 글로벌 건설 기업이 되겠습니다.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">미션</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            첨단 기술과 친환경 솔루션을 통해 고객의 꿈을 현실로 만들고, 
+                            모든 이해관계자와 함께 성장하는 가치를 창출합니다.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 연혁 -->
+                <div class="bg-gray-50 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">주요 연혁</h3>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="timeline-item">
+                            <div class="font-semibold text-blue-600">1985년</div>
+                            <div class="text-gray-800 font-medium">하늘종합건설 설립</div>
+                            <div class="text-gray-600 text-sm">소규모 주택 건설업체로 시작</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="font-semibold text-blue-600">1995년</div>
+                            <div class="text-gray-800 font-medium">대형 건설업체로 성장</div>
+                            <div class="text-gray-600 text-sm">아파트 단지 및 상업시설 건설 진출</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="font-semibold text-blue-600">2005년</div>
+                            <div class="text-gray-800 font-medium">해외 진출</div>
+                            <div class="text-gray-600 text-sm">중동, 동남아시아 플랜트 건설</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="font-semibold text-blue-600">2015년</div>
+                            <div class="text-gray-800 font-medium">친환경 기술 도입</div>
+                            <div class="text-gray-600 text-sm">그린 빌딩, 신재생에너지 사업</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="font-semibold text-blue-600">2025년</div>
+                            <div class="text-gray-800 font-medium">스마트 건설 선도</div>
+                            <div class="text-gray-600 text-sm">AI, IoT 기반 스마트 시티 구축</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 사업분야 -->
+    <section id="business" class="section-padding">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">사업분야</h2>
+                <p class="text-xl text-gray-600">다양한 분야에서 전문성을 바탕으로 최고의 건설 서비스를 제공합니다</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-building-line text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">건축</h3>
+                    <p class="text-gray-600 mb-4">주거, 상업, 업무시설 등 다양한 건축물 설계 및 시공</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 아파트 단지</li>
+                        <li>• 오피스 빌딩</li>
+                        <li>• 상업시설</li>
+                        <li>• 공공건물</li>
+                    </ul>
+                </div>
+
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-road-map-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">토목</h3>
+                    <p class="text-gray-600 mb-4">도로, 교량, 터널 등 사회기반시설 건설</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 고속도로</li>
+                        <li>• 교량 건설</li>
+                        <li>• 터널 공사</li>
+                        <li>• 상하수도</li>
+                    </ul>
+                </div>
+
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-settings-line text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">플랜트</h3>
+                    <p class="text-gray-600 mb-4">산업 시설 및 에너지 플랜트 건설</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 석유화학 플랜트</li>
+                        <li>• 발전소</li>
+                        <li>• 제철소</li>
+                        <li>• 담수화 플랜트</li>
+                    </ul>
+                </div>
+
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-home-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">주택</h3>
+                    <p class="text-gray-600 mb-4">고품질 주거 공간 개발 및 공급</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 대단지 아파트</li>
+                        <li>• 타운하우스</li>
+                        <li>• 단독주택</li>
+                        <li>• 임대주택</li>
+                    </ul>
+                </div>
+
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-building-2-line text-2xl text-cyan-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">도시개발</h3>
+                    <p class="text-gray-600 mb-4">스마트시티 및 신도시 개발</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 신도시 조성</li>
+                        <li>• 스마트시티</li>
+                        <li>• 재개발</li>
+                        <li>• 재건축</li>
+                    </ul>
+                </div>
+
+                <div class="project-card bg-white rounded-lg p-8 shadow-md text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-leaf-line text-2xl text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">에너지</h3>
+                    <p class="text-gray-600 mb-4">신재생에너지 및 친환경 시설</p>
+                    <ul class="text-gray-600 text-sm space-y-1">
+                        <li>• 태양광 발전</li>
+                        <li>• 풍력 발전</li>
+                        <li>• 에너지 저장</li>
+                        <li>• 바이오 에너지</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주요 프로젝트 -->
+    <section id="projects" class="section-padding bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">주요 프로젝트</h2>
+                <p class="text-xl text-gray-600">하늘종합건설의 대표적인 프로젝트를 소개합니다</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="project-item" style="background-image: url('https://placehold.co/400x300/1e40af/ffffff?text=서울+랜드마크+타워');">
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold mb-2">하남 랜드마크 타워</h3>
+                        <p class="mb-4">스마트시티 복합건물</p>
+                        <div class="text-sm">진행중 | 건축</div>
+                    </div>
+                </div>
+                
+                
+                <div class="project-item" style="background-image: url('https://placehold.co/400x300/7c2d12/ffffff?text=에코+스마트시티');">
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold mb-2">에코 스마트시티</h3>
+                        <p class="mb-4">친환경 미래형 신도시</p>
+                        <div class="text-sm">진행중 | 도시개발</div>
+                    </div>
+                </div>
+                
+                <div class="project-item" style="background-image: url('https://placehold.co/400x300/dc2626/ffffff?text=해외+플랜트');">
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold mb-2">중동 두바이 석유화학 플랜트</h3>
+                        <p class="mb-4">연간 100만톤 생산시설</p>
+                        <div class="text-sm">진행중| 플랜트</div>
+                    </div>
+                </div>
+                
+                <div class="project-item" style="background-image: url('https://placehold.co/400x300/0891b2/ffffff?text=힐스테이트+신도시');">
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold mb-2">SKY스테이트 신도시</h3>
+                        <p class="mb-4">3,000세대 대단지 아파트</p>
+                        <div class="text-sm">진행중 | 주택</div>
+                    </div>
+                </div>
+                
+                <div class="project-item" style="background-image: url('https://placehold.co/400x300/ea580c/ffffff?text=그린+에너지+센터');">
+                    <div class="project-overlay">
+                        <h3 class="text-2xl font-bold mb-2">그린 에너지 센터</h3>
+                        <p class="mb-4">신재생에너지 통합관리시설</p>
+                        <div class="text-sm">진행중 | 에너지</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#contact" class="btn-primary-hd">전체 프로젝트 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 지속가능경영 -->
+    <section id="sustainability" class="section-padding">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">지속가능경영</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    환경, 사회, 지배구조의 균형 잡힌 발전을 통해 지속가능한 미래를 만들어갑니다
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-leaf-line text-4xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">Environment</h3>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">환경</h4>
+                    <ul class="text-gray-600 space-y-2 text-left">
+                        <li>• 친환경 건축 인증 100% 달성</li>
+                        <li>• 탄소 중립 건설 기술 도입</li>
+                        <li>• 재생에너지 활용 확대</li>
+                        <li>• 순환경제 구축</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-group-line text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">Social</h3>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">사회</h4>
+                    <ul class="text-gray-600 space-y-2 text-left">
+                        <li>• 지역사회 일자리 창출</li>
+                        <li>• 안전한 작업환경 구축</li>
+                        <li>• 사회공헌 활동 확대</li>
+                        <li>• 상생 협력 생태계</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card bg-white rounded-lg p-8 text-center shadow-md">
+                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-shield-check-line text-4xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4">Governance</h3>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4">지배구조</h4>
+                    <ul class="text-gray-600 space-y-2 text-left">
+                        <li>• 투명한 경영</li>
+                        <li>• 윤리경영 실천</li>
+                        <li>• 리스크 관리 체계</li>
+                        <li>• 이해관계자 소통</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 뉴스 & 소식 -->
+    <section class="section-padding bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">뉴스 & 소식</h2>
+                <p class="text-xl text-gray-600">하늘종합건설의 최신 소식을 확인하세요</p>
+            </div>                        
+                <article class="news-card bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-purple-600 to-purple-800 relative">
+                        <div class="news-overlay">
+                            <span class="text-xs bg-purple-600 px-2 py-1 rounded">해외사업</span>
+                            <h3 class="text-lg font-bold mt-2">베트남 대형 플랜트 수주</h3>
+                            <p class="text-sm mt-1">2025.01.05</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#contact" class="btn-secondary-hd">전체 뉴스 보기</a>
+            </div>
+        </div>
+    </section>
+           
+            <div class="text-center mt-16">
+                <h3 class="text-2xl font-bold text-gray-800 mb-8">투자자료 다운로드</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#" class="feature-card bg-gray-100 hover:bg-gray-200 px-6 py-4 rounded-lg transition-colors">
+                        <i class="ri-file-text-line text-2xl text-gray-600 mb-2 block"></i>
+                        <div class="font-semibold">사업보고서</div>
+                    </a>
+                    <a href="#" class="feature-card bg-gray-100 hover:bg-gray-200 px-6 py-4 rounded-lg transition-colors">
+                        <i class="ri-presentation-line text-2xl text-gray-600 mb-2 block"></i>
+                        <div class="font-semibold">IR 자료</div>
+                    </a>
+                    <a href="#" class="feature-card bg-gray-100 hover:bg-gray-200 px-6 py-4 rounded-lg transition-colors">
+                        <i class="ri-line-chart-line text-2xl text-gray-600 mb-2 block"></i>
+                        <div class="font-semibold">실적자료</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 & 채용정보 -->
+    <section id="contact" class="section-padding bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">문의하기</h2>
+                    <p class="text-xl text-gray-600">하늘종합건설과 함께 미래를 건설해나가세요</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="feature-card bg-gray-50 p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">연락처 정보</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <i class="ri-building-line text-2xl text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">본사</div>
+                                    <div class="text-gray-600">하남시 </div>
+                                    <div class="text-gray-600">하늘빌딩 5-7층</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <i class="ri-phone-line text-2xl text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">대표전화</div>
+                                    <div class="text-gray-600">010-7572-2562</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <i class="ri-mail-line text-2xl text-blue-600 mt-1"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-800">이메일</div>
+                                    <div class="text-gray-600">greatparkjaesoo@gmail.com</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <i class="ri-printer-line text-2xl text-blue-600 mt-1"></i>                                
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <div class="font-semibold text-gray-800 mb-4">소셜 미디어</div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                    <i class="ri-facebook-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    <i class="ri-twitter-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center hover:bg-blue-800 transition-colors">
+                                    <i class="ri-linkedin-fill"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                                    <i class="ri-youtube-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card bg-gray-50 p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">채용정보</h3>
+                        
+                        <div class="space-y-6">
+                            <p class="text-gray-600 leading-relaxed">
+                                하늘종합건설은 항상 우수한 인재를 찾고 있습니다. 
+                                건설 산업의 미래를 함께 만들어갈 열정적인 분들의 지원을 기다립니다.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="border border-gray-200 rounded-lg p-4 bg-white">
+                                    <div class="font-semibold text-gray-800">건축 설계 엔지니어</div>
+                                    <div class="text-sm text-gray-600">경력 3년 이상 | 서울</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4 bg-white">
+                                    <div class="font-semibold text-gray-800">현장 관리자</div>
+                                    <div class="text-sm text-gray-600">신입/경력 | 전국</div>
+                                </div>
+                                <div class="border border-gray-200 rounded-lg p-4 bg-white">
+                                    <div class="font-semibold text-gray-800">안전 관리자</div>
+                                    <div class="text-sm text-gray-600">경력 5년 이상 | 경기</div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <a href="#" class="btn-primary-hd w-full text-center block">채용공고 보기</a>
+                                <a href="#" class="btn-secondary-hd w-full text-center block">입사지원하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 섹션 -->
+    <section class="py-20 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">하늘종합건설과 함께 미래를 건설하세요</h2>
+            <p class="text-xl mb-8">40년 경험과 혁신 기술로 더 나은 내일을 만들어갑니다</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="sky_group_main.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">프로젝트 문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                    <div class="md:col-span-2">
+                        <div class="flex items-center space-x-3 mb-6">
+                              <img src="images/skygrouplogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                            <div>
+                                <div class="text-2xl font-bold">하늘종합건설</div>
+                                <div class="text-sm text-gray-400">HANEUL E&C</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            40년간 축적된 기술력과 혁신으로 대한민국 건설 산업을 선도하며, 
+                            지속 가능한 미래 가치를 창조하는 종합 건설 전문기업입니다.
+                        </p>
+                        <div class="text-sm text-gray-500">
+                            <div>서울시 강남구 테헤란로 123, 하늘빌딩 15-20층</div>
+                            <div>사업자등록번호: 123-45-67890</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">빠른 링크</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#about" class="hover:text-white transition-colors">회사소개</a></li>
+                            <li><a href="#business" class="hover:text-white transition-colors">사업분야</a></li>
+                            <li><a href="#projects" class="hover:text-white transition-colors">주요프로젝트</a></li>
+                            <li><a href="#sustainability" class="hover:text-white transition-colors">지속가능경영</a></li>
+                            <li><a href="#ir" class="hover:text-white transition-colors">투자정보</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">고객지원</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#contact" class="hover:text-white transition-colors">문의하기</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">채용정보</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">협력업체</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">안전신고</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">윤리신고</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                        © 2025 하늘종합건설. All rights reserved.
+                    </div>
+                    <div class="flex space-x-6 text-gray-500 text-sm">
+                        <a href="#" class="hover:text-white transition-colors">개인정보처리방침</a>
+                        <a href="#" class="hover:text-white transition-colors">이용약관</a>
+                        <a href="#" class="hover:text-white transition-colors">법적고지</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP 애니메이션 스크립트 -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // 히어로 섹션 애니메이션
+        gsap.timeline()
+            .from(".hero-content h1", {duration: 1, y: 50, opacity: 0, delay: 0.5})
+            .from(".hero-content p", {duration: 1, y: 30, opacity: 0, delay: 0.7})
+            .from(".hero-content .stat-number", {duration: 1, scale: 0, opacity: 0, stagger: 0.2, delay: 0.9})
+            .from(".hero-content .btn-primary-hd, .hero-content .btn-secondary-hd", {duration: 0.8, y: 20, opacity: 0, stagger: 0.2, delay: 1.2});
+        
+        // 스크롤 애니메이션
+        gsap.utils.toArray(".project-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        gsap.utils.toArray(".feature-card").forEach((card, i) => {
+            gsap.from(card, {
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        gsap.utils.toArray(".project-item").forEach((item, i) => {
+            gsap.from(item, {
+                duration: 0.8,
+                scale: 0.8,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        // 타임라인 애니메이션
+        gsap.utils.toArray(".timeline-item").forEach((item, i) => {
+            gsap.from(item, {
+                duration: 0.6,
+                x: -50,
+                opacity: 0,
+                delay: i * 0.1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 헤더 스크롤 효과
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header-fixed');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
+                        
