@@ -320,9 +320,26 @@
                 <a href="#subsidiaries" class="text-gray-700 hover:text-blue-600 transition-colors">자회사</a>
                 <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
             </nav>
-            <button class="md:hidden text-gray-700 text-2xl">
-                <i class="ri-menu-line"></i>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 text-2xl relative z-50">
+                <i class="ri-menu-line" id="menu-icon"></i>
+                <i class="ri-close-line hidden" id="close-icon"></i>
             </button>
+        </div>
+        
+        <!-- 모바일 메뉴 오버레이 -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-40">
+            <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu-panel">
+                <div class="p-6 pt-20">
+                    <nav class="space-y-6">
+                        <a href="#home" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">홈</a>
+                        <a href="#about" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">회사소개</a>
+                        <a href="#business" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">사업분야</a>
+                        <a href="#projects" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">프로젝트</a>
+                        <a href="#subsidiaries" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">자회사</a>
+                        <a href="#contact" class="mobile-menu-link block text-gray-700 hover:text-blue-600 transition-colors text-lg font-medium">문의하기</a>
+                    </nav>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -946,6 +963,90 @@
 
         // 부드러운 스크롤 네비게이션 (가장 중요!)
         document.addEventListener('DOMContentLoaded', function() {
+        // 모바일 메뉴 기능
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            
+            let isMenuOpen = false;
+            
+            // 햄버거 메뉴 버튼 클릭
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+            
+            // 오버레이 클릭시 메뉴 닫기
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // 모바일 메뉴 링크 클릭시 메뉴 닫기
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+            
+            // ESC 키로 메뉴 닫기
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isMenuOpen) {
+                    closeMobileMenu();
+                }
+            });
+            
+            function toggleMobileMenu() {
+                if (isMenuOpen) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            }
+            
+            function openMobileMenu() {
+                isMenuOpen = true;
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+                
+                // 아이콘 변경
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                
+                // 애니메이션으로 메뉴 패널 슬라이드인
+                setTimeout(() => {
+                    mobileMenuPanel.style.transform = 'translateX(0)';
+                }, 10);
+            }
+            
+            function closeMobileMenu() {
+                isMenuOpen = false;
+                mobileMenuPanel.style.transform = 'translateX(100%)';
+                document.body.style.overflow = ''; // 스크롤 복원
+                
+                // 아이콘 변경
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                
+                // 애니메이션 완료 후 오버레이 숨기기
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+            }
+            
+            // 창 크기 변경시 데스크톱 크기가 되면 모바일 메뉴 닫기
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768 && isMenuOpen) {
+                    closeMobileMenu();
+                }
+            });
+        });
             // 네비게이션 링크 클릭 이벤트
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
