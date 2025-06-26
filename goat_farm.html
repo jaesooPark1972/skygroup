@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스마트 유산양 집단 농장 - 하늘그룹의 미래 먹거리 사업</title>
+    <title>스마트 유산양 집단 농장 - 하늘그룹</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -13,8 +16,6 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #FDFDFB; /* 리포트 파일의 배경색 적용 */
-            color: #383838; /* 리포트 파일의 텍스트 색상 적용 */
         }
         .hero-section {
             background: linear-gradient(135deg, #84cc16, #65a30d);
@@ -27,63 +28,30 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
-        .section-title {
-            color: #383838; /* 리포트 파일의 텍스트 색상 적용 */
-        }
-        /* 추가된 섹션의 색상 팔레트 */
-        .bg-lime-50\/50 {
-            background-color: rgba(247, 253, 237, 0.5); /* #F7FDE5의 50% 투명도 */
-        }
-        .text-lime-600 {
-            color: #65a30d;
-        }
-        .bg-lime-600 {
-            background-color: #65a30d;
-        }
-        .accent-lime-500 {
-            accent-color: #84cc16; /* 슬라이더 색상 */
-        }
     </style>
 </head>
-<body class="antialiased">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+<body class="bg-gray-50">
+    <!-- 헤더 -->
+    <header class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="sky_group_main.html" class="flex items-center space-x-2">
                   <img src="images/SKYGROUPlogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
                 <span class="text-gray-700 font-medium">하늘그룹</span>
             </a>
             <nav class="hidden md:flex space-x-6">
-                <a href="sky_group_main.html" class="text-gray-700 hover:text-green-600 transition-colors">홈</a>
-                <a href="#overview" class="text-gray-700 hover:text-green-600 transition-colors">프로젝트 개요</a>
-                <a href="#why-goat" class="text-gray-700 hover:text-green-600 transition-colors">왜 유산양인가</a>
-                <a href="#potential" class="text-gray-700 hover:text-green-600 transition-colors">시장 잠재력</a>
-                <a href="#model" class="text-gray-700 hover:text-green-600 transition-colors">사업 모델</a>
-                <a href="#impact" class="text-gray-700 hover:text-green-600 transition-colors">경제적 효과</a>
-                <a href="#faq" class="text-gray-700 hover:text-green-600 transition-colors">FAQ</a>
-                <a href="#contact" class="text-gray-700 hover:text-green-600 transition-colors">문의하기</a>
+                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
+                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </div>
-         <div id="mobile-menu" class="hidden md:hidden bg-white py-2">
-            <a href="#overview" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">프로젝트 개요</a>
-            <a href="#why-goat" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">왜 유산양인가</a>
-            <a href="#potential" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">시장 잠재력</a>
-            <a href="#model" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">사업 모델</a>
-            <a href="#impact" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">경제적 효과</a>
-            <a href="#faq" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">FAQ</a>
-            <a href="#contact" class="block text-center py-2 px-4 text-sm text-gray-700 hover:bg-green-50">문의하기</a>
         </div>
     </header>
 
+    <!-- 히어로 섹션 -->
     <section class="hero-section py-20">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">스마트 유산양 집단 농장</h1>
-            <h2 class="text-2xl md:text-4xl font-bold mb-6">하늘그룹의 미래 먹거리 사업</h2>
-            <p class="text-xl md:text-2xl mb-8 opacity-90">고품질 유제품 생산 및 가공 시스템을 통한 지속 가능한 농업 혁신</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">스마트 유산양</h1>
+            <h2 class="text-2xl md:text-4xl font-bold mb-6">집단 농장</h2>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">고품질 유제품 생산 및 가공 시스템</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
                     <div class="text-3xl font-bold mb-2">10만두</div>
@@ -101,10 +69,11 @@
         </div>
     </section>
 
-    <section id="overview" class="py-20 bg-white">
+    <!-- 개요 섹션 -->
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-8 section-title">프로젝트 개요</h2>
+                <h2 class="text-3xl font-bold text-center mb-8">프로젝트 개요</h2>
                 <div class="text-lg leading-relaxed mb-8">
                     <p class="mb-6">
                         이 스마트 유산양 집단 농장은 <strong class="text-green-600">10만 두의 유산양</strong>을 사육하며, 하루에 약 50만 리터의 고품질 유제품을 생산하는 것을 목표로 합니다.
@@ -120,70 +89,10 @@
         </div>
     </section>
 
-    <section id="why-goat" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">왜 유산양인가? - 미래 먹거리의 핵심</h2>
-            <p class="max-w-3xl mx-auto text-gray-600 mb-12">산양유는 단순한 유제품을 넘어, 건강과 웰빙을 생각하는 현대인에게 최적의 선택입니다. 그 특별한 가치와 효능을 소개합니다.</p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-lime-50/50 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300">
-                    <div class="text-5xl text-lime-600 mb-4">🌿</div>
-                    <h3 class="text-xl font-bold mb-2">모유와 닮은 편안함</h3>
-                    <p class="text-gray-600">산양유는 모유와 성분이 유사하여 소화 흡수가 쉽고, 우유 섭취 시 발생할 수 있는 배탈이나 속 불편함이 적어 영유아부터 노년층까지 모두에게 편안합니다.</p>
-                </div>
-                <div class="bg-lime-50/50 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300">
-                    <div class="text-5xl text-lime-600 mb-4">🛡️</div>
-                    <h3 class="text-xl font-bold mb-2">알레르기 걱정 감소</h3>
-                    <p class="text-gray-600">우유 알레르기의 주원인인 α-S1 카제인 함량이 낮고, 소화가 잘되는 β-카제인이 풍부하여 아토피성 피부염 등 알레르기 증상 완화에 도움을 줄 수 있습니다.</p>
-                </div>
-                <div class="bg-lime-50/50 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300">
-                    <div class="text-5xl text-lime-600 mb-4">💎</div>
-                    <h3 class="text-xl font-bold mb-2">프리미엄 영양 가치</h3>
-                    <p class="text-gray-600">일반 우유보다 2~3배 높은 가격에 거래되는 고부가가치 제품입니다. 칼슘, 비타민 등 필수 영양소가 풍부하여 온 가족의 건강 증진에 기여합니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="potential" class="py-16 md:py-24">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">무한한 시장 잠재력 - 국내 생산의 기회</h2>
-            <p class="max-w-3xl mx-auto text-gray-600 mb-12">국내 유산양 산업은 아직 초기 단계로, 성장 가능성이 매우 높습니다. 데이터는 국내 시장의 기회가 얼마나 큰지를 명확하게 보여줍니다.</p>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-center">산양유 vs 일반 우유 가격 비교</h3>
-                    <p class="text-gray-600 mb-4">산양유는 일반 우유보다 2~3배 높은 가격을 형성하여 높은 부가가치를 자랑합니다.</p>
-                    <div class="flex justify-around items-end h-40">
-                        <div class="text-center">
-                            <div class="bg-gray-300 w-12 h-16 rounded-t-lg mx-auto"></div>
-                            <p class="text-sm mt-2">일반 우유 (1배)</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="bg-lime-600 w-12 h-full rounded-t-lg mx-auto" style="height: 100px;"></div>
-                            <p class="text-sm mt-2">산양유 (2.5배)</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-4 text-center">높은 가치를 인정받는 산양유는 프리미엄 시장을 선도합니다.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-center">가공품 시장의 수입 의존도</h3>
-                    <p class="text-gray-600 mb-4">분유, 치즈 등 산양유 가공품은 거의 전량 수입에 의존하고 있어, 국내 생산을 통한 시장 개척의 잠재력이 매우 큽니다.</p>
-                    <div class="relative w-40 h-40 mx-auto">
-                        <div class="absolute inset-0 rounded-full" style="background: conic-gradient(#fb923c 95%, #dcfce7 95% 100%);"></div>
-                        <div class="absolute inset-0 flex items-center justify-center text-lg font-bold text-gray-800">95%</div>
-                    </div>
-                    <div class="flex justify-center text-sm text-gray-500 mt-4">
-                        <span class="mr-4"><span class="inline-block w-3 h-3 bg-orange-400 rounded-full mr-1"></span> 수입 의존 가공품</span>
-                        <span><span class="inline-block w-3 h-3 bg-green-200 rounded-full mr-1"></span> 국내 생산</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-4 text-center">국내 생산을 통한 시장 기회가 풍부합니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-gray-50">
+    <!-- 주요 운영 및 기술 요소 -->
+    <section class="py-20">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 section-title">주요 운영 및 기술 요소</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">주요 운영 및 기술 요소</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 <div class="feature-card bg-white rounded-lg p-6 shadow-md">
                     <div class="flex items-center mb-4">
@@ -248,41 +157,10 @@
         </div>
     </section>
 
-    <section id="model" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">생산부터 관광까지, 6차 산업 모델</h2>
-                <p class="max-w-3xl mx-auto text-gray-600 mb-12">유산양 사업은 단순한 축산업을 넘어, 가공(2차)과 체험/관광(3차)을 결합한 6차 산업으로 확장하여 부가가치를 극대화할 수 있습니다.</p>
-            </div>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
-                <div class="bg-gray-100 p-6 rounded-lg w-full md:w-1/4">
-                    <div class="text-4xl mb-2">①</div>
-                    <h4 class="font-bold text-lg">1차 산업: 생산</h4>
-                    <p class="text-sm text-gray-600">친환경 산지생태 축산을 통한 고품질 원유 생산</p>
-                </div>
-                <div class="text-4xl text-green-500 font-bold self-center transform md:rotate-0 rotate-90">+</div>
-                <div class="bg-gray-100 p-6 rounded-lg w-full md:w-1/4">
-                    <div class="text-4xl mb-2">②</div>
-                    <h4 class="font-bold text-lg">2차 산업: 가공</h4>
-                    <p class="text-sm text-gray-600">분유, 치즈, 요구르트 등 고부가가치 제품 제조</p>
-                </div>
-                <div class="text-4xl text-green-500 font-bold self-center transform md:rotate-0 rotate-90">+</div>
-                <div class="bg-gray-100 p-6 rounded-lg w-full md:w-1/4">
-                    <div class="text-4xl mb-2">③</div>
-                    <h4 class="font-bold text-lg">3차 산업: 서비스</h4>
-                    <p class="text-sm text-gray-600">목장 체험, 교육, 관광 등 다양한 서비스 제공</p>
-                </div>
-            </div>
-            <div class="mt-12 bg-lime-600 text-white p-8 rounded-xl shadow-lg">
-                <h3 class="text-2xl font-bold mb-4 text-center">상생을 위한 '지주회사' 지원 모델</h3>
-                <p class="text-center max-w-4xl mx-auto">사회적 기업 형태의 지주회사가 자본 투자, 기술 지원, 복지를 제공하고 농가는 생산에만 전념할 수 있는 혁신적인 협력 모델입니다. 귀농 희망자에게는 초기 정착 비용과 생활비를 지원하여 안정적인 귀농을 돕고, 농촌 공동체 전체의 동반 성장을 추구합니다.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20">
+    <!-- 생산 제품 라인업 -->
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 section-title">생산 제품 라인업</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">생산 제품 라인업</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 <div class="text-center">
                     <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -319,63 +197,17 @@
         </div>
     </section>
 
-    <section id="impact" class="py-16 md:py-24 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">놀라운 경제적 효과</h2>
-                <p class="max-w-3xl mx-auto text-gray-600 mb-12">유산양 사업은 농가 소득 증대는 물론, 대규모 단지 조성을 통해 지역 경제 활성화와 인구 유입에 크게 기여할 수 있습니다.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">귀농 농가 소득 시뮬레이션</h3>
-                    <p class="text-gray-600 mb-6">사육 두수를 조절하여 예상 연간 소득을 확인해보세요. (홍천 사업계획서 기준)</p>
-                    
-                    <div>
-                        <label for="goat-slider" class="font-medium">사육 두수: <span id="goat-count" class="text-lime-600 font-bold">100</span>마리</label>
-                        <input id="goat-slider" type="range" min="50" max="200" value="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-lime-500">
-                    </div>
-
-                    <div class="mt-6 bg-lime-50 p-6 rounded-lg text-center">
-                        <p class="text-gray-700">예상 연간 총 소득</p>
-                        <p class="text-3xl md:text-4xl font-bold text-lime-700 mt-2" id="income-display">약 2억 575만원</p>
-                        <p class="text-xs text-gray-500 mt-2">(산양유 판매 수익 + 새끼 판매 수익, 사료비 제외)</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4 text-center">대규모 특화 단지 조성 효과</h3>
-                    <p class="text-gray-600 mb-4">10만두 규모 단지 조성 시 연간 1.9조원 이상의 매출과 1.9조원의 세수 증대, 5만명 이상의 인구 증가가 기대됩니다.</p>
-                    <div class="flex justify-around items-end h-40">
-                        <div class="text-center">
-                            <div class="bg-teal-400 w-12 h-full rounded-t-lg mx-auto" style="height: 120px;"></div>
-                            <p class="text-sm mt-2">매출 (1.9조원)</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="bg-sky-400 w-12 h-full rounded-t-lg mx-auto" style="height: 100px;"></div>
-                            <p class="text-sm mt-2">세수 (1.9조원)</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="bg-violet-400 w-12 h-full rounded-t-lg mx-auto" style="height: 80px;"></div>
-                            <p class="text-sm mt-2">인구 증가 (5만명)</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-4 text-center">지역 경제 활성화와 인구 유입에 크게 기여합니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- 장점 섹션 -->
     <section class="py-20">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 section-title">스마트 유산양 집단 농장의 장점</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">스마트 유산양 집단 농장의 장점</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <div class="text-center">
                     <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="ri-trophy-line text-2xl text-green-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">초고밀도 및 고품질 생산</h3>
-                    <p class="text-gray-600">첨단 기술을 통해 대규모 사육 환경에서도 유산양의 스트레스를 최소화하고, 안정적으로 높은 품질의 유제품을 대량 생산합니다.</p>
+                    <p class="text-gray-600">첨단 기술을 통해 대규모 사육 환경에서도 유산양의 스트레스를 최소화하고, 안정적으로 높은 품질의 유제품을 대량 생산</p>
                 </div>
 
                 <div class="text-center">
@@ -383,7 +215,7 @@
                         <i class="ri-speed-up-line text-2xl text-blue-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">생산 효율성 극대화</h3>
-                    <p class="text-gray-600">자동화 및 지능형 시스템을 통해 노동력과 운영 비용을 획기적으로 절감하고, 생산성을 최적화합니다.</p>
+                    <p class="text-gray-600">자동화 및 지능형 시스템을 통해 노동력과 운영 비용을 획기적으로 절감하고, 생산성을 최적화</p>
                 </div>
 
                 <div class="text-center">
@@ -391,7 +223,7 @@
                         <i class="ri-money-dollar-circle-line text-2xl text-purple-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">안정적인 공급망 및 부가가치 창출</h3>
-                    <p class="text-gray-600">원료 시장 및 자체 프랜차이즈 납품을 통해 안정적인 수익 모델을 확보하고, 다양한 프리미엄 유제품 생산으로 부가가치를 높입니다.</p>
+                    <p class="text-gray-600">원료 시장 및 자체 프랜차이즈 납품을 통해 안정적인 수익 모델을 확보하고, 다양한 프리미엄 유제품 생산으로 부가가치를 높임</p>
                 </div>
 
                 <div class="text-center">
@@ -399,7 +231,7 @@
                         <i class="ri-shield-check-line text-2xl text-orange-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">위생 및 안전성 강화</h3>
-                    <p class="text-gray-600">철저한 위생 관리와 실시간 건강 모니터링을 통해 안전하고 건강한 유제품을 소비자에게 제공합니다.</p>
+                    <p class="text-gray-600">철저한 위생 관리와 실시간 건강 모니터링을 통해 안전하고 건강한 유제품을 소비자에게 제공</p>
                 </div>
 
                 <div class="text-center">
@@ -407,7 +239,7 @@
                         <i class="ri-leaf-line text-2xl text-red-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">지속 가능한 축산</h3>
-                    <p class="text-gray-600">스마트 시스템을 통해 자원 낭비를 줄이고 환경 부담을 최소화하여 지속 가능한 축산 모델을 제시합니다.</p>
+                    <p class="text-gray-600">스마트 시스템을 통해 자원 낭비를 줄이고 환경 부담을 최소화하여 지속 가능한 축산 모델을 제시</p>
                 </div>
 
                 <div class="text-center">
@@ -415,15 +247,16 @@
                         <i class="ri-global-line text-2xl text-indigo-600"></i>
                     </div>
                     <h3 class="text-lg font-bold mb-3">글로벌 브랜드 연계</h3>
-                    <p class="text-gray-600">Vivara 프랜차이즈와의 연계를 통해 고급 유제품을 전 세계 소비자에게 공급하는 글로벌 네트워크를 구축합니다.</p>
+                    <p class="text-gray-600">Vivara 프랜차이즈와의 연계를 통해 고급 유제품을 전 세계 소비자에게 공급하는 글로벌 네트워크 구축</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 농장 특징 -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 section-title">농장 주요 특징</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">농장 주요 특징</h2>
             <div class="max-w-4xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     <div class="bg-gray-50 rounded-lg p-6">
@@ -450,35 +283,19 @@
         </div>
     </section>
 
-    <section id="faq" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">자주 묻는 질문 (FAQ)</h2>
-                <p class="max-w-3xl mx-auto text-gray-600 mb-12">유산양 사업에 대해 더 궁금한 점이 있으신가요? 주요 질문에 대해 명확히 답변해 드립니다.</p>
-            </div>
-            <div class="space-y-4">
-                <div class="bg-gray-50 rounded-lg p-6">
-                    <h4 class="font-bold text-lg mb-2">Q: 이 유산양 사업은 하늘그룹의 고성 프로젝트와 관련이 있나요?</h4>
-                    <p class="text-gray-700">A: 아니요, 직접적인 관련이 없습니다. 본 리포트에서 분석한 유산양 사업 계획은 주로 강원도 홍천 지역을 중심으로 구상된 별도의 계획입니다. 하늘그룹의 고성 프로젝트는 스마트 양식업, 열대과일 재배, 에너지 자급 등을 중심으로 한 복합 테마파크 조성 사업으로, 유산양 목장이나 유제품 공장 계획은 포함되어 있지 않습니다. 이 점을 명확히 구분하여 이해하는 것이 중요합니다.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-6">
-                    <h4 class="font-bold text-lg mb-2">Q: 유산양 사육은 초보자도 쉽게 시작할 수 있나요?</h4>
-                    <p class="text-gray-700">A: 네, 체계적인 지원 시스템을 통해 가능합니다. 국립축산과학원에서 발간한 표준 영농 교본과 전문가의 사양 관리 지도가 제공됩니다. 또한 '지주회사' 모델을 통해 초기 자본, 기술 교육, 주거 문제까지 포괄적으로 지원하므로 귀농 희망자도 안정적으로 사업을 시작하고 정착할 수 있습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 bg-green-600 text-white">
+    <!-- CTA 섹션 -->
+    <section class="py-20 bg-green-600 text-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-6">스마트 유산양 집단 농장에 대해 더 알아보세요</h2>
             <p class="text-xl mb-8">프리미엄 유제품으로 건강한 미래를 만들어갑니다</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="sky_group_main.html" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
-                <a href="#contact-form" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">문의하기</a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">문의하기</a>
             </div>
         </div>
     </section>
+
+    <!-- 푸터 -->
 
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 text-center">
@@ -492,19 +309,12 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // GSAP 애니메이션 (기존 유지)
+        // GSAP 애니메이션
         gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
         gsap.from(".hero-section h2", {duration: 1, y: 30, opacity: 0, delay: 0.7});
         gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.9});
         
-        // 카드 애니메이션 (기존 유지)
+        // 카드 애니메이션
         gsap.utils.toArray(".feature-card").forEach((card, i) => {
             gsap.from(card, {
                 duration: 0.8,
@@ -519,45 +329,6 @@
                 }
             });
         });
-
-        // Income Calculator (리포트 내용 추가)
-        const slider = document.getElementById('goat-slider');
-        const goatCountEl = document.getElementById('goat-count');
-        const incomeDisplayEl = document.getElementById('income-display');
-
-        const calculateIncome = (goatCount) => {
-            const dailyMilkPerGoat = 2.5; // liter
-            const pricePerLiter = 2900; // won
-            const dailyFeedCostPerGoat = 2000; // won
-            const milkingDays = 300; // approx 10 months
-
-            const dailyMilkIncome = goatCount * dailyMilkPerGoat * pricePerLiter;
-            const dailyFeedCost = goatCount * dailyFeedCostPerGoat;
-            const dailyNetIncome = dailyMilkIncome - dailyFeedCost;
-
-            const annualMilkIncome = dailyNetIncome * milkingDays;
-            
-            const femaleOffspringValue = 600000;
-            const maleOffspringValue = 100000;
-            const annualOffspringIncome = goatCount * (femaleOffspringValue + maleOffspringValue) / 2 * 2; // Assuming 2 offspring per year, 50/50 gender ratio
-
-            const totalAnnualIncome = annualMilkIncome + annualOffspringIncome;
-            
-            return totalAnnualIncome;
-        };
-
-        const updateIncomeDisplay = () => {
-            const count = parseInt(slider.value);
-            goatCountEl.textContent = count;
-            const income = calculateIncome(count);
-            incomeDisplayEl.textContent = `약 ${Math.round(income / 10000).toLocaleString()}만원`;
-        };
-
-        if (slider) { // slider 엘리먼트가 존재할 경우에만 이벤트 리스너 추가
-            slider.addEventListener('input', updateIncomeDisplay);
-            updateIncomeDisplay(); // 초기 값 설정
-        }
-
     </script>
 </body>
 </html>

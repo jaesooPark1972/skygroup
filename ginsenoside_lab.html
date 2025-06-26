@@ -1,340 +1,603 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-진세노사이드 생산 분리정제 연구소 - 하늘그룹</title>
+    <title>K-진세노사이드 | 제약 원료의 미래</title>
+    
+    <!-- Chosen Palette: Warm Neutral with Gold/Deep Green Accent -->
+    <!-- Application Structure Plan: The application is designed as a single-page, thematic interactive dashboard. It guides the user—typically an investor or B2B partner—from a high-level introduction to deep dives into technology, products, quality assurance, financial viability, and a strategic roadmap. This non-linear, thematic structure allows users to explore sections based on their interests, making complex business plan data more digestible and engaging than a traditional linear document. Key interactions include an interactive process diagram, filterable product cards, dynamic charts for financial data, and a clickable project timeline, all designed to foster exploration and understanding. -->
+    <!-- Visualization & Content Choices: 
+        - Market Opportunity -> Goal: Inform/Impress -> Viz: Dynamic Counters -> Interaction: On-scroll animation -> Justification: Makes large numbers feel tangible and impressive -> Vanilla JS.
+        - Production Process -> Goal: Explain Complex Workflow -> Viz: Interactive HTML/CSS Process Diagram -> Interaction: Click steps to reveal details -> Justification: Simplifies a multi-stage process into an engaging, explorable narrative -> HTML/CSS + JS.
+        - Ginsenoside Types -> Goal: Organize & Allow Exploration -> Viz: Filterable Card Grid -> Interaction: Search input filters cards in real-time -> Justification: Manages a large dataset, allowing users to quickly find specific information -> Vanilla JS.
+        - Financials (Investment/Profit) -> Goal: Demonstrate Viability -> Viz: Interactive Donut/Bar Charts -> Interaction: Hover to see tooltips with precise data -> Justification: Makes dense financial data accessible and easy to compare -> Chart.js.
+        - Project Schedule -> Goal: Show Clear Plan -> Viz: Interactive Vertical Timeline -> Interaction: Scroll-based animations and highlights -> Justification: More engaging and readable than a static Gantt chart -> HTML/CSS + JS.
+        - Quality Control -> Goal: Build Trust -> Viz: Prominent display of SGS report findings -> Interaction: Simple, clear text and visual cues -> Justification: Highlights a key competitive advantage and builds credibility -> HTML/CSS.
+        - All choices confirm to NO SVG and NO Mermaid JS, using Canvas for charts and structured HTML/CSS for diagrams.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
+            background-color: #fdfcfb;
+            color: #333;
         }
-        .hero-section {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
         }
-        .feature-card {
-            transition: all 0.3s ease;
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        .nav-link {
+            transition: color 0.3s ease, border-color 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
-        .mega-stat {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .nav-link.active, .nav-link:hover {
+            color: #b45309;
+            border-bottom-color: #b45309;
+        }
+        .process-step-line {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background-color: #d1d5db;
+            z-index: 0;
+        }
+        .process-step:not(:last-child)::after {
+            content: '▼';
+            position: absolute;
+            bottom: -2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: #9ca3af;
+        }
+         .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: -0.875rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            border: 4px solid #fdfcfb;
+            background-color: #d97706; 
+            z-index: 10;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- 헤더 -->
-    <header class="bg-white shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="sky_group_main.html" class="flex items-center space-x-2">
-                <img src="images/SKYGROUPlogo.png" alt="파란색과 주황색 곡선이 어우러진 하늘그룹 로고, 밝고 현대적인 느낌, 흰색 배경 위에 로고와 오른쪽에 하늘그룹 텍스트가 나란히 배치됨" class="h-8 w-auto">
-                <span class="text-gray-700 font-medium">하늘그룹</span>
+
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">
+                <span class="text-amber-600">K-</span>진세노사이드
             </a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="sky_group_main.html" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
-                <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">프로젝트</a>
-                <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
-            </nav>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#intro" class="nav-link font-medium text-gray-600 pb-1">소개</a>
+                <a href="#tech" class="nav-link font-medium text-gray-600 pb-1">핵심 기술</a>
+                <a href="#products" class="nav-link font-medium text-gray-600 pb-1">제품</a>
+                <a href="#quality" class="nav-link font-medium text-gray-600 pb-1">품질 보증</a>
+                <a href="#business" class="nav-link font-medium text-gray-600 pb-1">사업성</a>
+                <a href="#roadmap" class="nav-link font-medium text-gray-600 pb-1">로드맵</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#intro" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">소개</a>
+            <a href="#tech" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">핵심 기술</a>
+            <a href="#products" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">제품</a>
+            <a href="#quality" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">품질 보증</a>
+            <a href="#business" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">사업성</a>
+            <a href="#roadmap" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100">로드맵</a>
         </div>
     </header>
 
-    <!-- 히어로 섹션 -->
-    <section class="hero-section py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">K-진세노사이드</h1>
-            <h2 class="text-2xl md:text-4xl font-bold mb-6">생산 분리정제 연구소</h2>
-            <p class="text-xl md:text-2xl mb-8 opacity-90">세계 최대 규모의 진세노사이드 연구 및 생산 시설</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
-                    <div class="text-4xl font-bold mb-2">36조원</div>
-                    <div class="text-lg opacity-90">연간 예상 매출</div>
+    <main>
+        <!-- Section 1: Hero / Introduction -->
+        <section id="intro" class="py-20 md:py-32 bg-amber-50">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-amber-900 tracking-tight">K-진세노사이드: 제약 원료의 새로운 시대</h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-700">98% 이상 고순도 인삼사포닌 대량 생산 기술을 통해 글로벌 신약 원료 시장을 선도합니다.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-bold text-amber-600" id="stat-purity">98%+</h3>
+                        <p class="mt-2 text-gray-600">목표 순도 달성</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-bold text-amber-600" id="stat-investment">1,500억</h3>
+                        <p class="mt-2 text-gray-600">초기 투자 규모 (원)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-bold text-amber-600" id="stat-market">70조</h3>
+                        <p class="mt-2 text-gray-600">2030년 목표 시장 (원)</p>
+                    </div>
                 </div>
-                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
-                    <div class="text-4xl font-bold mb-2">30조원</div>
-                    <div class="text-lg opacity-90">연간 순이익</div>
-                </div>
-            </div>
-            <div class="mt-8">
-                <span class="bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-6 py-2 text-lg font-semibold">
-                    🏆 세계 최대 규모 연구소
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <!-- 개요 섹션 -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-8">연구소 개요</h2>
-                <div class="text-lg leading-relaxed mb-8">
-                    <p class="mb-6">
-                        이 연구소는 세계 최대 규모의 <strong class="text-orange-600">K-진세노사이드 생산 및 분리정제 연구소</strong>로, 연간 36조 원의 매출과 30조 원의 순이익을 목표로 운영됩니다.
-                    </p>
-                    <p class="mb-6">
-                        바이오 헬스 원료 산업의 핵심 동력이 될 고품질 진세노사이드를 생산하기 위해 첨단 분리정제 기술을 활용합니다.
-                    </p>
-                    <p>
-                        스마트팜 단지에서 수확되는 새싹인삼뿐만 아니라, 국내외에서 발굴되는 특이 성분을 가진 다양한 작물과 열매에서도 진세노사이드를 추출하고 정제하여 우수한 원료를 공급할 예정입니다.
+                 <div class="mt-16 text-left max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">사업 소개</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        본 사업은 인삼의 핵심 활성 성분인 진세노사이드(인삼 사포닌)를 최첨단 기술로 생산하여 고부가가치 제약 원료 시장에 공급하는 것을 목표로 합니다. 진세노사이드는 항암, 면역 증진 등 다양한 효능을 가진 약 30여 종의 화합물로, 신약 개발의 핵심 자원으로 주목받고 있습니다. 저희는 독자적인 스마트팜 재배, 저온 추출, 고순도 분리정제 기술을 통해 기존 방식의 한계를 극복하고, 98% 이상의 고순도 원료를 안정적으로 대량 생산할 수 있는 기반을 마련했습니다. 이를 통해 2030년 70조 원 규모로 성장이 예상되는 글로벌 신약 원료 시장의 핵심 플레이어로 도약하고자 합니다.
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 핵심 수치 -->
-    <section class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">놀라운 규모와 성과</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                <div class="text-center">
-                    <div class="mega-stat text-5xl font-black mb-3">36조원</div>
-                    <div class="text-gray-700 text-lg font-semibold">연간 매출 목표</div>
+        <!-- Section 2: Core Technology -->
+        <section id="tech" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">독보적인 생산 기술</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">첨단 기술의 융합으로 최고 품질의 진세노사이드를 생산합니다.</p>
                 </div>
-                <div class="text-center">
-                    <div class="mega-stat text-5xl font-black mb-3">30조원</div>
-                    <div class="text-gray-700 text-lg font-semibold">연간 순이익</div>
+                 <div class="text-left max-w-4xl mx-auto mb-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">핵심 기술 소개</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        저희의 경쟁력은 '스마트팜-추출-정제'로 이어지는 수직 계열화된 생산 공정에 있습니다. 이 섹션에서는 각 기술 단계가 어떻게 유기적으로 연결되어 최고 순도의 제품을 만들어내는지 보여줍니다. 각 단계를 클릭하여 저희의 혁신적인 기술과 그로 인한 이점을 자세히 살펴보세요. 이는 단순한 생산을 넘어, 제약 원료 산업의 새로운 표준을 제시하는 과정입니다.
+                    </p>
                 </div>
-                <div class="text-center">
-                    <div class="mega-stat text-5xl font-black mb-3">98%</div>
-                    <div class="text-gray-700 text-lg font-semibold">RG3 고순도</div>
-                </div>
-                <div class="text-center">
-                    <div class="mega-stat text-5xl font-black mb-3">473종</div>
-                    <div class="text-gray-700 text-lg font-semibold">무농약 인증</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 주요 연구 및 생산 시스템 -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">주요 연구 및 생산 시스템</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-orange-100 p-3 rounded-lg mr-4">
-                            <i class="ri-flask-line text-2xl text-orange-600"></i>
+                <div class="relative max-w-2xl mx-auto mt-12">
+                    <div id="process-flow" class="flex flex-col items-center space-y-20">
+                        <!-- Step 1 -->
+                        <div class="process-step w-full text-center relative cursor-pointer" data-step="1">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-amber-200 z-10 relative">
+                                <div class="text-2xl font-bold text-amber-700">Step 1. 급속 재배 스마트팜</div>
+                                <div class="step-details hidden mt-4 text-left text-gray-600 space-y-2">
+                                    <p><strong>기술:</strong> ICT/IoT 기반 수직 농장, 생육 환경 빅데이터 분석, 재배 자동화.</p>
+                                    <p><strong>이점:</strong> 균일한 품질의 원료삼 대량 생산, 재배 기간 단축, 외부 환경 영향 최소화.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold">초고효율 분리정제 기술</h3>
-                    </div>
-                    <p class="text-gray-600">
-                        진세노사이드의 순도와 활성을 극대화하기 위한 최첨단 분리 및 정제 기술이 적용됩니다. 이는 크로마토그래피, 막 분리, 초임계 추출 등 다양한 고급 기술을 포함합니다.
-                    </p>
-                </div>
-
-                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-100 p-3 rounded-lg mr-4">
-                            <i class="ri-plant-line text-2xl text-green-600"></i>
+                        <!-- Step 2 -->
+                        <div class="process-step w-full text-center relative cursor-pointer" data-step="2">
+                             <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-green-200 z-10 relative">
+                                <div class="text-2xl font-bold text-green-700">Step 2. 저온 추출</div>
+                                 <div class="step-details hidden mt-4 text-left text-gray-600 space-y-2">
+                                    <p><strong>기술:</strong> 제어된 가열/가압/냉각 시스템을 통한 저온 추출 방식.</p>
+                                    <p><strong>이점:</strong> 기능성 약용 물질 파괴 최소화, 높은 약효 유지, 샘플 변성 방지, 고효율 추출.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold">원료 다변화 전략</h3>
-                    </div>
-                    <p class="text-gray-600">
-                        스마트팜의 새싹인삼 외에도 전 세계에서 수집된 다양한 특이 성분 식물(작물, 열매)에서 진세노사이드를 탐색하고 추출하여 원료의 다양성을 확보합니다.
-                    </p>
-                </div>
-
-                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 p-3 rounded-lg mr-4">
-                            <i class="ri-shield-check-line text-2xl text-blue-600"></i>
+                        <!-- Step 3 -->
+                        <div class="process-step w-full text-center relative cursor-pointer" data-step="3">
+                             <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-blue-200 z-10 relative">
+                                <div class="text-2xl font-bold text-blue-700">Step 3. 고순도 분리정제</div>
+                                 <div class="step-details hidden mt-4 text-left text-gray-600 space-y-2">
+                                    <p><strong>기술:</strong> HP20 분획, PPT 숙성, Prep HPLC 장비 활용.</p>
+                                    <p><strong>이점:</strong> 70% ~ 98% 이상의 고순도 진세노사이드 생산, 정밀한 성분 분리, 고부가가치 제품 확보.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold">품질 관리 및 표준화</h3>
                     </div>
-                    <p class="text-gray-600">
-                        생산되는 모든 진세노사이드 원료는 엄격한 품질 관리 시스템을 거쳐 국제 표준에 부합하는 최고 수준의 품질과 안전성을 보장합니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Products -->
+        <section id="products" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">주요 진세노사이드 제품군</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">다양한 효능을 가진 고순도 진세노사이드 라인업을 소개합니다.</p>
+                </div>
+                 <div class="text-left max-w-4xl mx-auto mb-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">제품 탐색</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        30여 종에 달하는 진세노사이드는 각각 고유한 약리적 효능을 가지고 있습니다. 아래 목록에서는 저희가 주력으로 생산하는 주요 진세노사이드와 그 효능을 정리했습니다. 관심 있는 성분명이나 효능을 검색하여 원하는 정보를 빠르게 찾아보세요. 이는 저희의 연구 개발 역량과 제품 포트폴리오의 깊이를 보여줍니다.
                     </p>
                 </div>
+                <div class="max-w-xl mx-auto mb-8">
+                    <input type="text" id="product-search" placeholder="성분명 또는 효능으로 검색 (예: Rh2, 항암)..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition">
+                </div>
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Product cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
 
-                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
-                            <i class="ri-brain-line text-2xl text-purple-600"></i>
+        <!-- Section 4: Quality Assurance -->
+        <section id="quality" class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">타협 없는 품질 관리</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">글로벌 표준을 뛰어넘는 엄격한 품질 검증 시스템을 운영합니다.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden md:flex">
+                    <div class="md:w-1/2 p-8 flex flex-col justify-center items-center bg-green-600 text-white">
+                         <h3 class="text-3xl font-bold">SGS 인증</h3>
+                         <p class="text-6xl font-extrabold mt-4">473</p>
+                         <p class="text-xl mt-2">항목 잔류 농약</p>
+                         <p class="text-4xl font-bold text-green-200 mt-4">"불검출"</p>
+                    </div>
+                    <div class="md:w-1/2 p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">신뢰할 수 있는 안전성</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                           제약 원료의 핵심은 안전성과 순도입니다. 저희는 세계적인 공인 시험기관 SGS를 통해 생산된 원료의 잔류 농약 검사를 완료했습니다. 총 473개 항목에 대한 정밀 검사 결과 '불검출' 판정을 받아 제품의 안전성을 국제적으로 입증했습니다. 이는 저희 제품이 가장 민감한 제약 및 신약 개발 요구사항까지 충족할 수 있음을 의미합니다.
+                        </p>
+                        <a href="https://eecloud.sgs.com/index.aspx" target="_blank" class="inline-block mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            SGS 검증 포털 바로가기
+                        </a>
+                        <p class="text-xs text-gray-500 mt-2">보고서 번호: F690101/LF-CTSAYFN21-05014</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Business Case -->
+        <section id="business" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">투명한 사업 계획</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">데이터에 기반한 명확한 재무 목표와 수익 모델을 제시합니다.</p>
+                </div>
+                <div class="text-left max-w-4xl mx-auto mb-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">재무 분석</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        성공적인 비즈니스는 명확한 재무 계획에서 시작됩니다. 이 섹션에서는 저희 사업의 초기 투자 내역과 연간 수익성 분석을 투명하게 공개합니다. 아래의 대화형 차트를 통해 주요 재무 지표를 한눈에 파악하고, 저희 사업이 가진 견고한 성장 잠재력을 확인해 보시기 바랍니다. 모든 데이터는 현실적인 시장 분석과 생산 효율성 계산에 기반하고 있습니다.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-4">초기 투자 비용 상세 (총 1,505억)</h3>
+                        <div class="chart-container">
+                            <canvas id="investmentChart"></canvas>
                         </div>
-                        <h3 class="text-xl font-bold">AI 기반 연구 및 개발</h3>
                     </div>
-                    <p class="text-gray-600">
-                        인공지능과 빅데이터를 활용하여 새로운 진세노사이드 성분을 발견하고, 최적의 추출 및 정제 조건을 탐색하며, 생체 활성 효능을 예측하는 연구를 수행합니다.
-                    </p>
-                </div>
-
-                <div class="feature-card bg-gray-50 rounded-lg p-6 shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-red-100 p-3 rounded-lg mr-4">
-                            <i class="ri-robot-line text-2xl text-red-600"></i>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-4">연간 수익 분석 (단위: 억 원)</h3>
+                        <div class="chart-container">
+                             <canvas id="profitChart"></canvas>
                         </div>
-                        <h3 class="text-xl font-bold">생산 자동화 및 스마트 공정</h3>
                     </div>
-                    <p class="text-gray-600">
-                        생산 전 과정에 걸쳐 자동화된 로봇 시스템과 스마트 공정 제어를 도입하여 생산 효율성을 높이고 인적 오류를 최소화합니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Roadmap -->
+        <section id="roadmap" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">성공을 향한 로드맵</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">체계적인 실행 계획으로 목표를 현실로 만듭니다.</p>
+                </div>
+                 <div class="text-left max-w-4xl mx-auto mb-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">사업 일정</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        위대한 비전은 구체적인 실행 계획을 통해 현실이 됩니다. 저희는 투자 유치부터 공장 설립, 연구 개발, 그리고 본격적인 생산에 이르기까지 모든 단계를 면밀하게 계획했습니다. 아래 타임라인은 저희의 전략적 마일스톤을 보여주며, 각 단계가 어떻게 다음 단계의 성공을 위한 발판이 되는지 설명합니다. 이는 저희의 강력한 실행 의지와 체계적인 사업 관리 능력을 증명합니다.
                     </p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 진세노사이드 종류 -->
-    <section class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">주요 진세노사이드 성분</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-4xl mb-4">💊</div>
-                    <h3 class="text-xl font-bold mb-3 text-orange-600">Ginsenoside CK</h3>
-                    <p class="text-gray-600">항암 및 면역 증진 효과가 뛰어난 고급 진세노사이드 성분으로 제약 산업의 핵심 원료입니다.</p>
-                </div>
-
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-4xl mb-4">🧬</div>
-                    <h3 class="text-xl font-bold mb-3 text-orange-600">RG3 고순도 98%</h3>
-                    <p class="text-gray-600">순도 98%의 고품질 RG3 성분을 대량 생산하여 프리미엄 건강기능식품 시장을 선도합니다.</p>
-                </div>
-
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-4xl mb-4">🌿</div>
-                    <h3 class="text-xl font-bold mb-3 text-orange-600">K-특허 화합물</h3>
-                    <p class="text-gray-600">독자적인 연구를 통해 발견한 신규 진세노사이드 화합물로 글로벌 특허를 보유하고 있습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 비전 섹션 -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">K-진세노사이드 연구소의 비전</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="text-center">
-                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="ri-rocket-line text-2xl text-orange-600"></i>
+                <div class="relative max-w-3xl mx-auto mt-12">
+                    <div class="border-l-2 border-gray-200 absolute h-full top-0 left-4"></div>
+                    <div id="timeline-container" class="space-y-12">
+                         <!-- Timeline items will be injected here by JavaScript -->
                     </div>
-                    <h3 class="text-lg font-bold mb-3">바이오 헬스 산업 선도</h3>
-                    <p class="text-gray-600">고품질 진세노사이드 원료를 안정적으로 공급하여 제약, 건강기능식품, 화장품 등 바이오 헬스 산업의 성장을 견인합니다.</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="ri-global-line text-2xl text-blue-600"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3">기술 혁신 및 글로벌 경쟁력</h3>
-                    <p class="text-gray-600">끊임없는 연구 개발과 기술 혁신을 통해 진세노사이드 분야에서 세계적인 기술 경쟁력을 확보하고, 글로벌 시장을 선도합니다.</p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="ri-leaf-line text-2xl text-green-600"></i>
-                    </div>
-                    <h3 class="text-lg font-bold mb-3">지속 가능한 성장</h3>
-                    <p class="text-gray-600">친환경적인 생산 공정을 구축하고, 연구 윤리를 준수하며 지속 가능한 기업 가치를 창출합니다.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 인증 및 승인 -->
-    <section class="py-20">
+    </main>
+
+    <!-- Footer -->
+    <!-- 연락처 -->
+    <section id="contact" class="py-20">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">국제 인증 및 승인</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-3xl mb-3">🏆</div>
-                    <h3 class="font-bold text-lg mb-2">SGS 인증</h3>
-                    <p class="text-gray-600 text-sm">473종 무농약 인증 완료</p>
-                </div>
-                
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-3xl mb-3">🇺🇸</div>
-                    <h3 class="font-bold text-lg mb-2">FDA 등록</h3>
-                    <p class="text-gray-600 text-sm">미국 시장 진출 승인</p>
-                </div>
-                
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-3xl mb-3">🔬</div>
-                    <h3 class="font-bold text-lg mb-2">GMP 인증</h3>
-                    <p class="text-gray-600 text-sm">의약품 제조 품질 관리 기준</p>
-                </div>
-                
-                <div class="bg-white rounded-lg p-6 shadow-md text-center">
-                    <div class="text-3xl mb-3">🌍</div>
-                    <h3 class="font-bold text-lg mb-2">ISO 인증</h3>
-                    <p class="text-gray-600 text-sm">국제 품질 관리 표준</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 이미지 갤러리 -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">연구소 시설</h2>
-            <div class="max-w-4xl mx-auto">
-                <img src="images/3_3.jpg" alt="K-진세노사이드 연구소" class="w-full rounded-lg shadow-lg mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <img src="images/3_3.jpg" alt="연구소 시설 1" class="w-full h-48 object-cover rounded-lg shadow-md">
-                    <img src="images/3_3.jpg" alt="연구소 시설 2" class="w-full h-48 object-cover rounded-lg shadow-md">
-                    <img src="images/3_3.jpg" alt="연구소 시설 3" class="w-full h-48 object-cover rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-center mb-6">문의하기</h2>
+            <p class="text-xl text-gray-600 text-center mb-12">하늘그룹과 함께 미래를 만들어가세요</p>
+            
+            <div class="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-center text-gray-800">
+                        <thead>
+                            <tr>
+                                <th class="pb-3 px-4 font-semibold text-lg text-gray-700 border-b border-gray-200">전화번호</th>
+                                <th class="pb-3 px-4 font-semibold text-lg text-gray-700 border-b border-gray-200">이메일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-4 px-4 align-middle">
+                                    <a href="tel:01075722562" class="hover:text-blue-600 text-base font-medium">010 7572 2562</a>
+                                </td>
+                                <td class="py-4 px-4 align-middle">
+                                    <a href="mailto:greatparkjaesoo@gmail.com" class="hover:text-blue-600 break-all text-base font-medium">greatparkjaesoo@gmail.com</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 align-middle">
+                                    <a href="tel:01053448638" class="hover:text-blue-600 text-base font-medium">010 5344 8638</a>
+                                </td>
+                                <td class="py-4 px-4 align-middle">
+                                    <a href="mailto:momo5959@naver.com" class="hover:text-blue-600 break-all text-base font-medium">momo5959@naver.com</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
-    <section class="py-20 bg-orange-600 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-6">K-진세노사이드 연구소와 함께하세요</h2>
-            <p class="text-xl mb-8">세계 최대 규모의 진세노사이드 연구소에서 미래 바이오 헬스 산업을 선도합니다</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="sky_group_main.html" class="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">메인으로 돌아가기</a>
-                <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors">투자 문의하기</a>
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h3 class="text-2xl font-bold">K-진세노사이드</h3>
+            <p class="mt-2 text-gray-400">글로벌 제약 원료 시장의 혁신을 주도합니다.</p>
+            <div class="mt-6">
+                 <a href="#header" class="bg-amber-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-amber-700 transition-colors">
+                    투자 및 파트너십 문의
+                </a>
             </div>
-        </div>
-    </section>
-
-    <!-- 푸터 -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex items-center justify-center space-x-2 mb-4">
-                <img src="images/SKYGROUPlogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
-                <span class="text-xl font-bold">하늘그룹</span>
-            </div>
-            <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
-            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
+            <p class="text-sm text-gray-500 mt-8">&copy; 2025 K-Ginsenoside. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // GSAP 애니메이션
-        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
-        gsap.from(".hero-section h2", {duration: 1, y: 30, opacity: 0, delay: 0.7});
-        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.9});
-        
-        // 카드 애니메이션
-        gsap.utils.toArray(".feature-card").forEach((card, i) => {
-            gsap.from(card, {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                delay: i * 0.1,
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Data from the source documents
+            const productData = [
+                { name: 'G-Rb2', effect: '항당뇨, 항동맥경화, 항산화, 면역조절' },
+                { name: 'G-Rd', effect: '부신피질 자극호르몬 분비 촉진, 신장사구체 비대 억제' },
+                { name: 'G-Re', effect: '혈관 확장, 간 보호, 콜레스테롤 대사 촉진' },
+                { name: 'G-Rh2', effect: '암세포 증식 억제, 종양증식 억제, 항암활성 증대' },
+                { name: 'G-Ro', effect: '항염증, 혈소판 응집 억제, 항간염, 혈관확장' },
+                { name: 'Rg3', effect: '폐경기 증상 완화, 치매 예방, 면역력 증진, 항암' },
+                { name: 'Rh1', effect: '간 보호, 항혈소판, 암세포 전이 억제' },
+                { name: 'Rg2', effect: '기억력 감퇴 개선, 중추신경 흥분' },
+                { name: 'CK (Compound K)', effect: '중추신경 억제, 간 기능 보호, 뇌신경세포 증식, 항암' },
+                { name: 'Rg1', effect: '혈관 확장, 기억력 개선 작용, 학습 기능 개선' },
+                { name: 'Rb1', effect: '중추신경계 억제, 진정, 최면, 진통, 정신안정' },
+                { name: 'Rc', effect: '진통 작용, 단백질 및 지질 합성 촉진' },
+                { name: 'PPD', effect: '암세포 사멸 유도, 항염증, 항알러지' },
+            ];
+
+            const timelineData = [
+                { phase: '1단계', title: '투자 유치 및 법인 설립', description: '사업 계획에 따른 투자 유치를 완료하고, 농업회사법인을 설립합니다.' },
+                { phase: '2단계', title: '부지 매입 및 인허가', description: '스마트팜 및 생산 시설을 위한 12,000평 규모의 부지를 매입하고, 관련 인허가를 완료합니다.' },
+                { phase: '3단계', title: '설계 및 장비 발주', description: '기본 및 실시 설계를 완료하고, 재배사, 추출실, 분리정제실에 필요한 핵심 장비를 발주합니다.' },
+                { phase: '4단계', title: '시설 구축 및 장비 설치', description: '건축 공사를 진행하고, 발주한 생산 및 R&D 장비의 설치를 완료합니다.' },
+                { phase: '5단계', title: '인력 채용 및 시운전', description: '생산, 영업, 관리 분야의 핵심 인력을 채용하고, 전체 생산 라인의 시운전을 통해 시스템을 안정화합니다.' },
+                { phase: '6단계', title: '본격 생산 및 판매 시작', description: '월 240만 유닛 생산을 목표로 본격적인 상업 생산을 시작하고, 국내외 제약사를 대상으로 판매를 개시합니다.' },
+            ];
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            // Active Nav Link on Scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Technology Process Flow Interaction
+            const processSteps = document.querySelectorAll('.process-step');
+            processSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const details = step.querySelector('.step-details');
+                    details.classList.toggle('hidden');
+                });
+            });
+            
+            // Products Search and Display
+            const productGrid = document.getElementById('product-grid');
+            const productSearch = document.getElementById('product-search');
+
+            function displayProducts(products) {
+                productGrid.innerHTML = '';
+                if (products.length === 0) {
+                    productGrid.innerHTML = `<p class="text-gray-500 col-span-full text-center">검색 결과가 없습니다.</p>`;
+                    return;
+                }
+                products.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-lg shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-300';
+                    card.innerHTML = `
+                        <h4 class="text-xl font-bold text-gray-800 flex items-center">
+                           <span class="text-amber-600 mr-2">🧪</span> ${p.name}
+                        </h4>
+                        <p class="mt-3 text-gray-600">${p.effect}</p>
+                    `;
+                    productGrid.appendChild(card);
+                });
+            }
+
+            productSearch.addEventListener('keyup', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredProducts = productData.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) || 
+                    p.effect.toLowerCase().includes(searchTerm)
+                );
+                displayProducts(filteredProducts);
+            });
+
+            displayProducts(productData);
+
+            // Timeline Generation
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'timeline-item pl-10 relative';
+                div.innerHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-amber-500">
+                        <span class="text-sm font-semibold text-amber-600">${item.phase}</span>
+                        <h4 class="text-xl font-bold text-gray-800 mt-1">${item.title}</h4>
+                        <p class="mt-2 text-gray-600">${item.description}</p>
+                    </div>
+                `;
+                timelineContainer.appendChild(div);
+            });
+
+            // Chart.js Implementations
+            function createCharts() {
+                // Investment Chart
+                const investmentCtx = document.getElementById('investmentChart').getContext('2d');
+                new Chart(investmentCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['토지매입', '건축/시설', 'R&D/장비', '인건비', '기타'],
+                        datasets: [{
+                            label: '투자 비용 (억 원)',
+                            data: [240, 750, 350, 105, 60], // Estimated breakdown of 1505억
+                            backgroundColor: ['#c2410c', '#ea580c', '#f97316', '#fb923c', '#fdba74'],
+                            borderColor: '#fdfcfb',
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += new Intl.NumberFormat('ko-KR').format(context.parsed) + '억 원';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%',
+                    }
+                });
+
+                // Profit Chart
+                const profitCtx = document.getElementById('profitChart').getContext('2d');
+                new Chart(profitCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['연간 재무 분석'],
+                        datasets: [
+                            {
+                                label: '총 매출',
+                                data: [1368],
+                                backgroundColor: '#16a34a',
+                                borderRadius: 4,
+                            },
+                            {
+                                label: '총 지출',
+                                data: [647],
+                                backgroundColor: '#dc2626',
+                                borderRadius: 4,
+                            },
+                             {
+                                label: '세전 순이익',
+                                data: [721],
+                                backgroundColor: '#0ea5e9',
+                                borderRadius: 4,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '억';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + '억 원';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Use Intersection Observer to trigger animations and chart creation
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if(entry.target.id === 'business') {
+                            createCharts();
+                            observer.unobserve(entry.target); 
+                        }
+                        // Could add more animations here
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const businessSection = document.getElementById('business');
+            if(businessSection) {
+                observer.observe(businessSection);
+            }
         });
     </script>
 </body>

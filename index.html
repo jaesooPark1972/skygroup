@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKY GROUP - 미래 혁신의 새로운 패러다임</title>
+    <meta name="touch-action" content="manipulation">
+    <title>하늘그룹 - 미래 혁신의 새로운 패러다임</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/SKYGROUPlogo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/SKYGROUPlogo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/SKYGROUPlogo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/SKYGROUPlogo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/SKYGROUPlogo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/SKYGROUPlogo.png">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563eb">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :where([class^="ri-"])::before { content: "\f3c2"; }
+        /* 모바일 터치 최적화 스타일 */
+        #mobile-menu-button {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #mobile-menu-button:active {
+            background-color: rgba(0,0,0,0.1);
+            transform: scale(0.95);
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            #mobile-menu-button:hover {
+                background-color: rgba(0,0,0,0.05);
+            }
+        }
         body {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             background-color: #f9fafb;
@@ -113,6 +142,8 @@
         }
         
         .btn-primary {
+            text-decoration: none;
+            display: inline-block;
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: white;
             padding: 12px 30px;
@@ -129,6 +160,8 @@
         }
         
         .btn-secondary {
+            text-decoration: none;
+            display: inline-block;
             background: transparent;
             color: white;
             padding: 12px 30px;
@@ -316,8 +349,8 @@
     <header class="bg-white shadow-sm">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
-                <img src="images/SKYGROUPlogo.png" alt="SKY GROUP 로고" class="h-8 w-auto">
-                <span class="text-gray-700 font-medium">SKY GROUP</span>
+                <img src="images/SKYGROUPlogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-gray-700 font-medium">하늘그룹</span>
             </a>
             <nav class="hidden md:flex space-x-6">
                 <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors">홈</a>
@@ -327,7 +360,7 @@
                 <a href="#subsidiaries" class="text-gray-700 hover:text-blue-600 transition-colors">자회사</a>
                 <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">문의하기</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 text-2xl relative z-50">
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 text-3xl relative z-50 p-3 touch-manipulation select-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg active:bg-gray-100 cursor-pointer border-none bg-transparent">
                 <i class="ri-menu-line" id="menu-icon"></i>
                 <i class="ri-close-line hidden" id="close-icon"></i>
             </button>
@@ -367,8 +400,8 @@
                 </div>
                 
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
-                    <button class="btn-primary">사업 소개서 다운로드</button>
-                    <button class="btn-secondary">투자 문의하기</button>
+                    <a href="business_items/business_introduce.pdf" download class="btn-primary">사업 소개서 다운로드</a>
+                    <a href="#contact" class="btn-secondary">투자 문의하기</a>
                 </div>
             </div>
         </div>
@@ -386,7 +419,10 @@
         <div class="container mx-auto px-4 relative z-10">
             <!-- 섹션 헤더 -->
             <div class="text-center mb-16">
-                <h2 class="section-title mb-6">SKY GROUP을 소개합니다</h2>
+                <div class="inline-block px-6 py-2 bg-gradient-to-r from-blue-100 to-emerald-100 rounded-full text-blue-700 font-semibold text-sm mb-4 about-badge">
+                    ABOUT SKY GROUP
+                </div>
+                <h2 class="section-title mb-6">하늘그룹을 소개합니다</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                     자연에서 혁신을, 혁신에서 건강을 실현하는 
                     <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">미래형 융합 기업</span>
@@ -399,7 +435,7 @@
                 <div class="space-y-6">
                     <div class="relative group">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
-                        <img src="images/1page.jpg" alt="SKY GROUP 전경" class="relative rounded-2xl shadow-2xl w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
+                        <img src="images/1page.jpg" alt="하늘그룹 전경" class="relative rounded-2xl shadow-2xl w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
                     </div>
                     
                     <!-- 통계 카드들 -->
@@ -409,7 +445,7 @@
                             <div class="text-sm text-gray-600">총 투자 규모</div>
                         </div>
                         <div class="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-white/20 shadow-lg">
-                            <div class="text-2xl font-bold text-emerald-600 mb-1">13개</div>
+                            <div class="text-2xl font-bold text-emerald-600 mb-1">12개</div>
                             <div class="text-sm text-gray-600">핵심 사업분야</div>
                         </div>
                     </div>
@@ -421,7 +457,7 @@
                     <div class="space-y-6">
                         <div class="prose prose-lg max-w-none">
                             <p class="text-gray-700 leading-relaxed mb-6">
-                                <strong class="text-gray-900">SKY GROUP(SKY Group)</strong>은 총 <span class="font-bold text-blue-600">5조 원 규모의 투자</span>로 
+                                <strong class="text-gray-900">하늘그룹(SKY Group)</strong>은 총 <span class="font-bold text-blue-600">5조 원 규모의 투자</span>로 
                                 4차 산업혁명 기술과 ESG 기반 지속 가능성을 중심으로 
                                 미래 농업·바이오·에너지·콘텐츠·유통 분야를 융합하는 글로벌 혁신 기업입니다.
                             </p>
@@ -507,7 +543,7 @@
     <section id="stats" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="section-title">핵심 성과 지표</h2>
-            <p class="section-subtitle">SKY GROUP의 혁신적인 사업 모델과 성장 잠재력을 수치로 확인하세요</p>
+            <p class="section-subtitle">하늘그룹의 혁신적인 사업 모델과 성장 잠재력을 수치로 확인하세요</p>
             
             <div class="stats-grid">
                 <div class="bg-gray-50 p-6 rounded-lg text-center">
@@ -771,7 +807,7 @@
     <section id="subsidiaries" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="section-title">자회사</h2>
-            <p class="section-subtitle">SKY GROUP의 다양한 자회사를 통한 사업 영역 확장</p>
+            <p class="section-subtitle">하늘그룹의 다양한 자회사를 통한 사업 영역 확장</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="bg-gray-50 rounded-lg p-6 text-center">
@@ -807,22 +843,45 @@
 
     <!-- 연락처 -->
     <section id="contact" class="py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="section-title">문의하기</h2>
-            <p class="section-subtitle">SKY GROUP과 함께 미래를 만들어가세요</p>
-            
-            <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
-                <div class="mb-4">
-                    <i class="ri-phone-line text-2xl text-blue-600 mb-2"></i>
-                    <p class="text-gray-800 font-semibold">전화번호</p>
-                    <p class="text-gray-600">010-7572-2562</p>
-                </div>
-                
-                <div class="mb-4">
-                    <i class="ri-mail-line text-2xl text-blue-600 mb-2"></i>
-                    <p class="text-gray-800 font-semibold">이메일</p>
-                    <p class="text-gray-600">greatparkjaesoo@gmail.com</p>
-                </div>
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center">문의하기</h2>
+            <p class="section-subtitle text-center">
+                하남 글로벌 콘텐츠 산업단지 프로젝트에 대한 더 자세한 정보나 협력 문의는 아래 연락처로 문의해주십시오.
+            </p>
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+                <table class="min-w-full text-center text-gray-800">
+                    <thead>
+                        <tr>
+                            <th class="pb-3 px-4 font-semibold text-lg text-gray-700 border-b border-gray-200 text-center">이름</th>
+                            <th class="pb-3 px-4 font-semibold text-lg text-gray-700 border-b border-gray-200 text-center">이메일</th>
+                            <th class="pb-3 px-4 font-semibold text-lg text-gray-700 border-b border-gray-200 text-center">전화번호</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-4 px-4 align-middle text-center font-medium">Park Jae-soo</td>
+                            <td class="py-4 px-4 align-middle text-center">
+                                <a href="mailto:greatparkjaesoo@gmail.com" class="hover:text-blue-600 break-all">
+                                    greatparkjaesoo@gmail.com
+                            </a>
+                            </td>
+                            <td class="py-4 px-4 align-middle text-center">
+                                <a href="tel:01075722562" class="hover:text-blue-600">010-7572-2562</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4 align-middle text-center font-medium">Hwang Hyun-mo</td>
+                            <td class="py-4 px-4 align-middle text-center">
+                                <a href="mailto:momo5959@naver.com" class="hover:text-blue-600 break-all">
+                                    momo5959@naver.com
+                            </a>
+                            </td>
+                            <td class="py-4 px-4 align-middle text-center">
+                                <a href="tel:01053448638" class="hover:text-blue-600">010-5344-8638</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -831,57 +890,20 @@
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 text-center">
             <div class="flex items-center justify-center space-x-2 mb-4">
-                <img src="images/SKYGROUPlogo.png" alt="SKY GROUP 로고" class="h-8 w-auto">
-                <span class="text-xl font-bold">SKY GROUP</span>
+                <img src="images/SKYGROUPlogo.png" alt="하늘그룹 로고" class="h-8 w-auto">
+                <span class="text-xl font-bold">하늘그룹</span>
             </div>
             <p class="text-gray-400">미래 혁신의 새로운 패러다임을 제시하는 글로벌 기업</p>
-            <p class="text-gray-500 text-sm mt-4">© 2025 SKY GROUP. All rights reserved.</p>
+            <p class="text-gray-500 text-sm mt-4">© 2025 하늘그룹. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // GSAP 애니메이션
-        gsap.from(".hero-section h1", {duration: 1, y: 50, opacity: 0, delay: 0.5});
-        gsap.from(".hero-section p", {duration: 1, y: 30, opacity: 0, delay: 0.8});
-        gsap.from(".hero-section .btn-primary, .hero-section .btn-secondary", {duration: 1, y: 20, opacity: 0, delay: 1.1, stagger: 0.2});
-        
-        // 스크롤 애니메이션
-        gsap.registerPlugin(ScrollTrigger);
-        
-        gsap.utils.toArray(".business-card").forEach((card, i) => {
-            gsap.from(card, {
-                duration: 0.8,
-                y: 50,
-                opacity: 0,
-                delay: i * 0.1,
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-        });
-        
-        gsap.utils.toArray(".project-card").forEach((card, i) => {
-            gsap.from(card, {
-                duration: 0.8,
-                x: -50,
-                opacity: 0,
-                delay: i * 0.1,
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-        });
-
-        // 부드러운 스크롤 네비게이션 (가장 중요!)
+        // 완전한 JavaScript 솔루션
         document.addEventListener('DOMContentLoaded', function() {
-        // 모바일 메뉴 기능
-        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing mobile menu...'); // 디버깅용
+            
+            // 모바일 메뉴 관련 요소들
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileMenuPanel = document.getElementById('mobile-menu-panel');
@@ -891,19 +913,43 @@
             
             let isMenuOpen = false;
             
-            // 햄버거 메뉴 버튼 클릭
-            mobileMenuButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleMobileMenu();
+            console.log('Mobile menu elements:', {
+                button: !!mobileMenuButton,
+                menu: !!mobileMenu,
+                panel: !!mobileMenuPanel,
+                menuIcon: !!menuIcon,
+                closeIcon: !!closeIcon
             });
             
+            // 햄버거 메뉴 버튼 클릭 이벤트
+            if (mobileMenuButton) {
+                // 클릭 이벤트
+                mobileMenuButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Mobile menu button clicked');
+                    toggleMobileMenu();
+                });
+                
+                // 터치 이벤트 (모바일용)
+                mobileMenuButton.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Mobile menu button touched');
+                    toggleMobileMenu();
+                });
+            } else {
+                console.error('Mobile menu button not found!');
+            }
+            
             // 오버레이 클릭시 메뉴 닫기
-            mobileMenu.addEventListener('click', function(e) {
-                if (e.target === mobileMenu) {
-                    closeMobileMenu();
-                }
-            });
+            if (mobileMenu) {
+                mobileMenu.addEventListener('click', function(e) {
+                    if (e.target === mobileMenu) {
+                        closeMobileMenu();
+                    }
+                });
+            }
             
             // 모바일 메뉴 링크 클릭시 메뉴 닫기
             mobileMenuLinks.forEach(link => {
@@ -920,6 +966,7 @@
             });
             
             function toggleMobileMenu() {
+                console.log('Toggle mobile menu, current state:', isMenuOpen);
                 if (isMenuOpen) {
                     closeMobileMenu();
                 } else {
@@ -928,32 +975,42 @@
             }
             
             function openMobileMenu() {
+                console.log('Opening mobile menu');
                 isMenuOpen = true;
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+                if (mobileMenu) {
+                    mobileMenu.classList.remove('hidden');
+                }
+                document.body.style.overflow = 'hidden';
                 
                 // 아이콘 변경
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
+                if (menuIcon) menuIcon.classList.add('hidden');
+                if (closeIcon) closeIcon.classList.remove('hidden');
                 
                 // 애니메이션으로 메뉴 패널 슬라이드인
                 setTimeout(() => {
-                    mobileMenuPanel.style.transform = 'translateX(0)';
+                    if (mobileMenuPanel) {
+                        mobileMenuPanel.style.transform = 'translateX(0)';
+                    }
                 }, 10);
             }
             
             function closeMobileMenu() {
+                console.log('Closing mobile menu');
                 isMenuOpen = false;
-                mobileMenuPanel.style.transform = 'translateX(100%)';
-                document.body.style.overflow = ''; // 스크롤 복원
+                if (mobileMenuPanel) {
+                    mobileMenuPanel.style.transform = 'translateX(100%)';
+                }
+                document.body.style.overflow = '';
                 
                 // 아이콘 변경
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
+                if (menuIcon) menuIcon.classList.remove('hidden');
+                if (closeIcon) closeIcon.classList.add('hidden');
                 
                 // 애니메이션 완료 후 오버레이 숨기기
                 setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 }, 300);
             }
             
@@ -963,8 +1020,8 @@
                     closeMobileMenu();
                 }
             });
-        });
-            // 네비게이션 링크 클릭 이벤트
+
+            // 네비게이션 링크 클릭 이벤트 (부드러운 스크롤)
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -973,7 +1030,7 @@
                     
                     if (targetElement) {
                         // 헤더 높이를 고려한 스크롤 위치 계산
-                        const headerHeight = 80; // 헤더 높이
+                        const headerHeight = 80;
                         const targetPosition = targetElement.offsetTop - headerHeight;
                         
                         window.scrollTo({
@@ -984,7 +1041,7 @@
                 });
             });
 
-            // 고급 Intersection Observer를 사용한 스크롤 애니메이션
+            // 스크롤 애니메이션
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -995,7 +1052,6 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animated');
                         
-                        // 타임라인 아이템들을 순차적으로 애니메이션
                         if (entry.target.classList.contains('timeline-item')) {
                             const items = entry.target.parentElement.querySelectorAll('.timeline-item');
                             items.forEach((item, index) => {
@@ -1011,78 +1067,6 @@
             // 애니메이션 대상 요소들 관찰 시작
             const animateElements = document.querySelectorAll('.animate-on-scroll');
             animateElements.forEach(el => observer.observe(el));
-            
-            // 타임라인 아이템들에 클래스 추가
-            const timelineItems = document.querySelectorAll('#about .space-y-12 > div');
-            timelineItems.forEach(item => {
-                item.classList.add('timeline-item', 'animate-on-scroll');
-                observer.observe(item);
-            });
-            
-            // 카드들에 스태거 애니메이션 적용
-            const cards = document.querySelectorAll('#about .grid > div');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.classList.add('animate-on-scroll');
-                observer.observe(card);
-            });
-
-            // 통계 카운터 시작
-            const statsObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = entry.target;
-                        const value = target.textContent;
-                        
-                        if (value.includes('5조원')) {
-                            animateCounter(target, 5);
-                        } else if (value.includes('13개')) {
-                            animateCounter(target, 13);
-                        }
-                        
-                        statsObserver.unobserve(target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            const statNumbers = document.querySelectorAll('#about .text-2xl.font-bold');
-            statNumbers.forEach(stat => statsObserver.observe(stat));
-        });
-
-        // 통계 카운터 애니메이션
-        function animateCounter(element, target, duration = 2000) {
-            let start = 0;
-            const startTime = performance.now();
-            
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                const current = Math.floor(start + (target - start) * easeOutQuart(progress));
-                element.textContent = current.toLocaleString();
-                
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
-            }
-            
-            requestAnimationFrame(update);
-        }
-        
-        function easeOutQuart(t) {
-            return 1 - Math.pow(1 - t, 4);
-        }
-
-        // 패럴랙스 효과
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.animate-blob');
-            
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.5 + (index * 0.1);
-                const translateY = scrolled * speed;
-                element.style.transform = `translateY(${translateY}px)`;
-            });
         });
     </script>
 </body>

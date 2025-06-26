@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 스마트팜 이미지 생성기 & 갤러리</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(45deg, #10b981, #059669);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --shadow-dark: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #10b981;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        .slide-in { animation: slideIn 0.4s ease-out; }
+
+        .action-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-button:hover::before { left: 100%; }
+        .action-button:hover { transform: translateY(-3px); box-shadow: var(--shadow-light); }
+        .action-button:active { transform: translateY(-1px); }
+        .action-button:disabled { 
+            cursor: not-allowed;
+            background-color: #9ca3af !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .nav-tab {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--secondary-gradient);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-tab.active::after { width: 100%; }
+        .nav-tab.active { color: #10b981; font-weight: 600; }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8f9fa;
+        }
+
+        .gallery-item:hover { 
+            transform: scale(1.05) rotate(1deg); 
+            box-shadow: var(--shadow-dark); 
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3), transparent);
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover .overlay { opacity: 1; transform: translateY(0); }
+
+        .image-container {
+            background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+            border: 2px dashed #93c5fd;
+            transition: all 0.3s ease;
+        }
+
+        .image-container.has-image { background: transparent; border: none; }
+
+        .prompt-suggestions { 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .suggestion-chip {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-chip:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); 
+        }
+
+        .floating-action { 
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+
+        .toast {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            min-width: 300px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show { transform: translateX(0); }
+
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary-gradient);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .stats-card {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .lg\:grid-cols-3 { grid-template-columns: 1fr; }
+            .lg\:col-span-2 { grid-column: span 1 / span 1; }
+            #gallery-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+
+    <!-- 헤더 -->
+    <header class="w-full bg-white/90 backdrop-blur-md text-gray-800 p-4 shadow-lg sticky top-0 z-40 border-b border-white/20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-seedling text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                        AI Smart Farm Studio
+                    </h1>
+                    <p class="text-xs text-gray-500 hidden md:block">AI로 미래 농업을 그려보세요</p>
+                </div>
+            </div>
+            <nav class="flex space-x-1 bg-gray-100 rounded-lg p-1">
+                <button id="generator-tab" class="nav-tab px-4 py-2 rounded-md text-gray-600 active">
+                    <i class="fas fa-magic mr-2"></i>생성기
+                </button>
+                <button id="gallery-tab" class="nav-tab px-4 py-2 rounded-md text-gray-600">
+                    <i class="fas fa-images mr-2"></i>갤러리
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="flex-grow w-full max-w-7xl mx-auto p-4 md:p-8">
+        <div id="generator-view" class="fade-in">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="glass-card">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-palette mr-2 text-emerald-500"></i>이미지 생성
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="prompt-input" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    상세한 설명을 입력하세요
+                                </label>
+                                <textarea 
+                                    id="prompt-input" 
+                                    rows="4"
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition resize-none"
+                                    placeholder="예: 유리 돔 안의 수직농장, LED 조명이 비추는 신선한 채소들..."></textarea>
+                            </div>
+                            <div class="prompt-suggestions">
+                                <button class="suggestion-chip" data-prompt="유리 돔 안의 미래형 수직농장, 보라색과 파란색 LED 조명">수직농장</button>
+                                <button class="suggestion-chip" data-prompt="로봇이 관리하는 첨단 온실, 자동화 시스템, 홀로그램 디스플레이">스마트 온실</button>
+                                <button class="suggestion-chip" data-prompt="공중에 떠있는 농장, 드론들이 작물을 관리, 구름 위의 농업">공중농장</button>
+                                <button class="suggestion-chip" data-prompt="지하 농장, 네온 조명, 사이버펑크 스타일의 농업 시설">지하농장</button>
+                            </div>
+                            <button id="generateBtn" class="action-button w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold px-6 py-4 rounded-xl hover:from-emerald-600 hover:to-teal-600 flex items-center justify-center">
+                                <i class="fas fa-magic mr-2"></i><span id="generateBtnText">AI로 이미지 생성하기</span>
+                            </button>
+                            <div id="progress-container" class="hidden">
+                                <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                                <p class="text-sm text-gray-600 mt-2 text-center">AI가 열심히 그리고 있어요...</p>
+                            </div>
+                        </div>
+                        <div class="stats-card mt-6">
+                            <h3 class="font-semibold mb-2">📊 생성 통계</h3>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div><span class="opacity-80">총 생성:</span><div id="total-generated" class="font-bold text-lg">0</div></div>
+                                <div><span class="opacity-80">저장됨:</span><div id="total-saved" class="font-bold text-lg">0</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="glass-card">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                                <i class="fas fa-image mr-2 text-emerald-500"></i>생성된 이미지
+                            </h2>
+                            <div id="image-actions" class="hidden space-x-2">
+                                <button id="downloadBtn" class="action-button bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                    <i class="fas fa-download mr-1"></i>다운로드
+                                </button>
+                                <button id="saveBtn" class="action-button bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600">
+                                    <i class="fas fa-save mr-1"></i>갤러리에 저장
+                                </button>
+                            </div>
+                        </div>
+                        <div id="imageDisplay" class="image-container w-full aspect-square rounded-xl flex items-center justify-center overflow-hidden">
+                            <div class="text-center text-gray-500">
+                                <i class="fas fa-image text-6xl mb-4 opacity-50"></i>
+                                <p class="text-lg font-medium">생성된 이미지가 여기에 표시됩니다</p>
+                                <p class="text-sm opacity-75 mt-2">왼쪽 패널에서 설명을 입력하고 생성 버튼을 눌러보세요</p>
+                            </div>
+                        </div>
+                        <div id="image-info" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">생성 정보</h4>
+                            <p id="current-prompt" class="text-sm text-gray-600"></p>
+                            <p id="generation-time" class="text-xs text-gray-500 mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gallery-view" class="hidden">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-images mr-3 text-emerald-500"></i>나의 AI 아트 갤러리
+                    </h2>
+                    <p class="text-gray-600 mt-2">당신이 만든 멋진 스마트팜 이미지들을 감상하세요</p>
+                </div>
+                <button id="clearGalleryBtn" class="action-button bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 hidden">
+                    <i class="fas fa-trash mr-1"></i>전체 삭제
+                </button>
+            </div>
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"></div>
+            <div id="gallery-placeholder" class="text-center py-20">
+                <div class="max-w-md mx-auto">
+                    <i class="fas fa-image text-8xl text-gray-300 mb-6"></i>
+                    <h3 class="text-2xl font-bold text-gray-600 mb-4">갤러리가 비어있어요</h3>
+                    <p class="text-gray-500 mb-6">AI로 멋진 스마트팜 이미지를 만들고 저장해보세요!</p>
+                    <button id="goToGeneratorBtn" class="action-button bg-emerald-500 text-white px-6 py-3 rounded-xl hover:bg-emerald-600">
+                        <i class="fas fa-magic mr-2"></i>이미지 생성하러 가기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 토스트 알림 -->
+    <div id="toast" class="toast">
+        <div class="bg-white rounded-lg shadow-xl border border-gray-200 p-4">
+            <div class="flex items-center">
+                <div id="toast-icon" class="mr-3"></div>
+                <div class="flex-1">
+                    <p id="toast-message" class="text-sm font-medium text-gray-800"></p>
+                </div>
+                <button id="toast-close" class="ml-4 text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 플로팅 액션 버튼 -->
+    <div class="floating-action hidden" id="floating-save">
+        <button class="action-button bg-emerald-500 text-white w-14 h-14 rounded-full shadow-xl hover:bg-emerald-600">
+            <i class="fas fa-save text-xl"></i>
+        </button>
+    </div>
+
+    <script type="module">
+        // UI 요소 캐싱
+        const elements = {
+            generatorTab: document.getElementById('generator-tab'),
+            galleryTab: document.getElementById('gallery-tab'),
+            generatorView: document.getElementById('generator-view'),
+            galleryView: document.getElementById('gallery-view'),
+            promptInput: document.getElementById('prompt-input'),
+            generateBtn: document.getElementById('generateBtn'),
+            generateBtnText: document.getElementById('generateBtnText'),
+            imageDisplay: document.getElementById('imageDisplay'),
+            imageActions: document.getElementById('image-actions'),
+            imageInfo: document.getElementById('image-info'),
+            currentPrompt: document.getElementById('current-prompt'),
+            generationTime: document.getElementById('generation-time'),
+            saveBtn: document.getElementById('saveBtn'),
+            downloadBtn: document.getElementById('downloadBtn'),
+            galleryGrid: document.getElementById('gallery-grid'),
+            galleryPlaceholder: document.getElementById('gallery-placeholder'),
+            clearGalleryBtn: document.getElementById('clearGalleryBtn'),
+            goToGeneratorBtn: document.getElementById('goToGeneratorBtn'),
+            progressContainer: document.getElementById('progress-container'),
+            progressFill: document.getElementById('progress-fill'),
+            totalGenerated: document.getElementById('total-generated'),
+            totalSaved: document.getElementById('total-saved'),
+            toast: document.getElementById('toast'),
+            toastIcon: document.getElementById('toast-icon'),
+            toastMessage: document.getElementById('toast-message'),
+            toastClose: document.getElementById('toast-close')
+        };
+
+        // 상태 관리
+        let currentImageUrl = null;
+        let currentPromptText = null;
+        let generationCount = 0;
+        let savedCount = 0;
+
+        const STORAGE_KEYS = {
+            GALLERY: 'smartfarm_gallery',
+            STATS: 'smartfarm_stats'
+        };
+
+        // 초기화
+        function init() {
+            loadStats();
+            loadGallery();
+            setupEventListeners();
+            setupSuggestionChips();
+            handleResize();
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            elements.generatorTab.addEventListener('click', () => switchView('generator'));
+            elements.galleryTab.addEventListener('click', () => switchView('gallery'));
+            elements.goToGeneratorBtn.addEventListener('click', () => switchView('generator'));
+            elements.generateBtn.addEventListener('click', generateImage);
+            elements.promptInput.addEventListener('keypress', (e) => e.ctrlKey && e.key === 'Enter' && generateImage());
+            elements.saveBtn.addEventListener('click', saveToGallery);
+            elements.downloadBtn.addEventListener('click', downloadImage);
+            elements.clearGalleryBtn.addEventListener('click', clearGallery);
+            elements.toastClose.addEventListener('click', hideToast);
+            window.addEventListener('resize', handleResize);
+        }
+
+        // 제안 칩 설정
+        function setupSuggestionChips() {
+            document.querySelectorAll('.suggestion-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    elements.promptInput.value = chip.dataset.prompt;
+                    elements.promptInput.focus();
+                });
+            });
+        }
+
+        // 뷰 전환
+        function switchView(view) {
+            elements.generatorView.classList.toggle('hidden', view !== 'generator');
+            elements.galleryView.classList.toggle('hidden', view !== 'gallery');
+            elements.generatorTab.classList.toggle('active', view === 'generator');
+            elements.galleryTab.classList.toggle('active', view === 'gallery');
+            if (view === 'gallery') loadGallery();
+        }
+
+        // 토스트 알림
+        function showToast(message, type = 'info') {
+            const icons = {
+                success: '<i class="fas fa-check-circle text-green-500"></i>',
+                error: '<i class="fas fa-exclamation-circle text-red-500"></i>',
+                info: '<i class="fas fa-info-circle text-blue-500"></i>',
+                warning: '<i class="fas fa-exclamation-triangle text-yellow-500"></i>'
+            };
+            elements.toastIcon.innerHTML = icons[type] || icons.info;
+            elements.toastMessage.textContent = message;
+            elements.toast.classList.add('show');
+            setTimeout(hideToast, 5000);
+        }
+
+        function hideToast() { elements.toast.classList.remove('show'); }
+
+        // 진행률 관리
+        function showProgress() {
+            elements.progressContainer.classList.remove('hidden');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                elements.progressFill.style.width = `${progress}%`;
+            }, 500);
+            return interval;
+        }
+
+        function hideProgress(interval) {
+            clearInterval(interval);
+            elements.progressFill.style.width = '100%';
+            setTimeout(() => {
+                elements.progressContainer.classList.add('hidden');
+                elements.progressFill.style.width = '0%';
+            }, 500);
+        }
+
+        // 이미지 생성
+        async function generateImage() {
+            const prompt = elements.promptInput.value.trim();
+            if (!prompt) return showToast('이미지 설명을 입력해주세요!', 'warning');
+
+            elements.generateBtn.disabled = true;
+            elements.generateBtnText.textContent = '생성 중...';
+            elements.imageActions.classList.add('hidden');
+            elements.imageInfo.classList.add('hidden');
+            const progressInterval = showProgress();
+            const startTime = Date.now();
+
+            try {
+                const apiKey = "AIzaSyBzFUURnYheSnBJpNDwaIznqKDwRdBofp8";
+                const enhancedPrompt = `A futuristic smart farm: ${prompt}. High quality, detailed, realistic, 8K resolution, professional photography style`;
+                let imageUrl = null;
+
+                // Imagen API 시도
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:generateImage?key=${apiKey}`;
+                const payload = {
+                    prompt: { text: enhancedPrompt },
+                    sampleCount: 1,
+                    aspectRatio: "1:1",
+                    safetyFilterLevel: "BLOCK_ONLY_HIGH"
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.generatedImages?.[0]?.bytesBase64Encoded) {
+                        imageUrl = `data:image/png;base64,${result.generatedImages[0].bytesBase64Encoded}`;
+                    }
+                }
+
+                if (!imageUrl) {
+                    showToast('API 호출 실패, 더미 이미지 생성 중...', 'warning');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    imageUrl = generateDummyImage(prompt);
+                }
+
+                const endTime = Date.now();
+                currentImageUrl = imageUrl;
+                currentPromptText = prompt;
+                displayGeneratedImage(imageUrl, prompt, endTime - startTime);
+                generationCount++;
+                updateStats();
+                showToast('이미지가 생성되었습니다!', 'success');
+            } catch (error) {
+                console.error('Image generation failed:', error);
+                showToast(`오류: ${error.message}`, 'error');
+                elements.imageDisplay.innerHTML = `
+                    <div class="text-center text-red-500">
+                        <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                        <p>이미지 생성 실패</p>
+                        <p class="text-sm mt-2 opacity-75">네트워크를 확인 후 다시 시도하세요</p>
+                    </div>
+                `;
+            } finally {
+                hideProgress(progressInterval);
+                elements.generateBtn.disabled = false;
+                elements.generateBtnText.textContent = 'AI로 이미지 생성하기';
+            }
+        }
+
+        // 더미 이미지 생성
+        function generateDummyImage(prompt) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            const themes = { '수직': ['#10b981', '#059669'], '온실': ['#3b82f6', '#1d4ed8'], default: ['#10b981', '#059669'] };
+            const theme = themes[prompt.includes('수직') ? '수직' : prompt.includes('온실') ? '온실' : 'default'];
+            const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+            gradient.addColorStop(0, theme[0]);
+            gradient.addColorStop(1, theme[1]);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 512, 512);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.font = 'bold 24px "Noto Sans KR"';
+            ctx.textAlign = 'center';
+            ctx.fillText(prompt, 256, 256);
+            return canvas.toDataURL('image/png', 0.9);
+        }
+
+        // 이미지 표시
+        function displayGeneratedImage(imageUrl, prompt, time) {
+            elements.imageDisplay.innerHTML = `<img src="${imageUrl}" alt="${prompt}" class="w-full h-full object-cover rounded-lg">`;
+            elements.imageDisplay.classList.add('has-image');
+            elements.currentPrompt.textContent = prompt;
+            elements.generationTime.textContent = `생성 시간: ${time}ms`;
+            elements.imageActions.classList.remove('hidden');
+            elements.imageInfo.classList.remove('hidden');
+        }
+
+        // 갤러리 저장
+        function saveToGallery() {
+            if (!currentImageUrl) return showToast('저장할 이미지가 없습니다.', 'warning');
+            const gallery = getGallery();
+            gallery.unshift({ id: Date.now(), imageUrl: currentImageUrl, prompt: currentPromptText, createdAt: new Date().toISOString() });
+            localStorage.setItem(STORAGE_KEYS.GALLERY, JSON.stringify(gallery));
+            savedCount++;
+            updateStats();
+            elements.saveBtn.disabled = true;
+            elements.saveBtn.innerHTML = '<i class="fas fa-check mr-1"></i>저장됨';
+            elements.saveBtn.classList.replace('bg-emerald-500', 'bg-gray-400');
+            showToast('저장 완료!', 'success');
+            if (elements.galleryView.classList.contains('hidden')) setTimeout(resetSaveButton, 2000);
+        }
+
+        function resetSaveButton() {
+            elements.saveBtn.disabled = false;
+            elements.saveBtn.innerHTML = '<i class="fas fa-save mr-1"></i>갤러리에 저장';
+            elements.saveBtn.classList.replace('bg-gray-400', 'bg-emerald-500');
+        }
+
+        // 이미지 다운로드
+        function downloadImage() {
+            if (!currentImageUrl) return showToast('다운로드할 이미지가 없습니다.', 'warning');
+            const link = document.createElement('a');
+            link.href = currentImageUrl;
+            link.download = `smartfarm_${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('다운로드 완료!', 'success');
+        }
+
+        // 갤러리 관리
+        function getGallery() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.GALLERY)) || []; }
+
+        function loadGallery() {
+            const gallery = getGallery();
+            elements.galleryGrid.innerHTML = '';
+            if (gallery.length === 0) {
+                elements.galleryPlaceholder.classList.remove('hidden');
+                elements.clearGalleryBtn.classList.add('hidden');
+            } else {
+                elements.galleryPlaceholder.classList.add('hidden');
+                elements.clearGalleryBtn.classList.remove('hidden');
+                gallery.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item aspect-square bg-gray-200 slide-in';
+                    div.style.animationDelay = `${index * 0.1}s`;
+                    div.innerHTML = `
+                        <img src="${item.imageUrl}" alt="${item.prompt}" class="w-full h-full object-cover">
+                        <div class="overlay">
+                            <p class="font-semibold text-sm">${item.prompt}</p>
+                            <p class="text-xs opacity-75">${formatDate(item.createdAt)}</p>
+                            <div class="flex space-x-2 mt-3">
+                                <button onclick="downloadGalleryImage('${item.imageUrl}', '${item.id}')" class="bg-white/20 hover:bg-white/30 px-3 py-1 rounded text-xs">
+                                    <i class="fas fa-download mr-1"></i>다운로드
+                                </button>
+                                <button onclick="deleteGalleryItem('${item.id}')" class="bg-red-500/80 hover:bg-red-500 px-3 py-1 rounded text-xs">
+                                    <i class="fas fa-trash mr-1"></i>삭제
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    elements.galleryGrid.appendChild(div);
+                });
+            }
+        }
+
+        window.deleteGalleryItem = function(id) {
+            if (!confirm('삭제하시겠습니까?')) return;
+            const gallery = getGallery().filter(item => item.id != id);
+            localStorage.setItem(STORAGE_KEYS.GALLERY, JSON.stringify(gallery));
+            savedCount = gallery.length;
+            updateStats();
+            loadGallery();
+            showToast('삭제 완료!', 'info');
+        };
+
+        window.downloadGalleryImage = function(imageUrl, id) {
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = `smartfarm_gallery_${id}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('다운로드 완료!', 'success');
+        };
+
+        function clearGallery() {
+            if (!confirm('모두 삭제하시겠습니까?')) return;
+            localStorage.removeItem(STORAGE_KEYS.GALLERY);
+            savedCount = 0;
+            updateStats();
+            loadGallery();
+            showToast('갤러리 비움!', 'info');
+        }
+
+        // 통계 관리
+        function getStats() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.STATS)) || { totalGenerated: 0, totalSaved: 0 }; }
+
+        function loadStats() {
+            const stats = getStats();
+            generationCount = stats.totalGenerated;
+            savedCount = stats.totalSaved;
+            updateStatsDisplay();
+        }
+
+        function updateStats() {
+            localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({ totalGenerated: generationCount, totalSaved: savedCount }));
+            updateStatsDisplay();
+        }
+
+        function updateStatsDisplay() {
+            elements.totalGenerated.textContent = generationCount;
+            elements.totalSaved.textContent = savedCount;
+        }
+
+        // 유틸리티
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const diffDays = Math.floor((new Date() - date) / (1000 * 60 * 60 * 24));
+            return diffDays < 1 ? '오늘' : diffDays === 1 ? '어제' : diffDays < 7 ? `${diffDays}일 전` : date.toLocaleDateString('ko-KR');
+        }
+
+        // 키보드 단축키
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter' && !elements.generateBtn.disabled) generateImage();
+            if (e.ctrlKey && e.key === 's' && currentImageUrl) saveToGallery();
+            if (e.ctrlKey && e.key === 'd' && currentImageUrl) downloadImage();
+            if (e.altKey && e.key === 'Tab') switchView(elements.generatorView.classList.contains('hidden') ? 'generator' : 'gallery');
+        });
+
+        // 반응형 처리
+        function handleResize() {
+            const isMobile = window.innerWidth < 768;
+            elements.galleryGrid.className = `grid ${isMobile ? 'grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'} gap-6`;
+        }
+
+        init();
+        console.log('🎨 AI Smart Farm Studio 초기화 완료!');
+        console.log('💡 팁: Ctrl+Enter 생성, Ctrl+S 저장, Ctrl+D 다운로드, Alt+Tab 뷰 전환');
+    </script>
+</body>
+</html>
